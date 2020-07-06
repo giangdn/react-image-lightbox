@@ -2091,6 +2091,7 @@ var ReactImageLightbox =
                   ? React__default.createElement(
                       'div',
                       {
+                        key: imageSrc + keyEndings[srcType],
                         style: imageStyle,
                         className: ''.concat(imageClass, ' ril__image'),
                       },
