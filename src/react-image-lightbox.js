@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
+import { Player } from 'video-react';
 import {
   translate,
   getWindowWidth,
   getWindowHeight,
   getHighestSafeWindowContext,
+  isVideo,
 } from './util';
 import {
   KEYS,
@@ -26,6 +28,7 @@ import {
   MIN_SWIPE_DISTANCE,
 } from './constant';
 import './style.css';
+import '../node_modules/video-react/dist/video-react.css'; // import css
 
 class ReactImageLightbox extends Component {
   static isTargetMatchImage(target) {
@@ -292,7 +295,8 @@ class ReactImageLightbox extends Component {
       // Use full-size image if available
       fitSizes = this.getFitSizes(
         this.imageCache[imageSrc].width,
-        this.imageCache[imageSrc].height
+        this.imageCache[imageSrc].height,
+        true
       );
     } else if (this.isImageLoaded(this.props[`${srcType}Thumbnail`])) {
       // Fall back to using thumbnail if the image has not been loaded
@@ -318,6 +322,7 @@ class ReactImageLightbox extends Component {
   // Get sizing for when an image is larger than the window
   getFitSizes(width, height, stretch) {
     const boxSize = this.getLightboxRect();
+
     let maxHeight = boxSize.height - this.props.imagePadding * 2;
     let maxWidth = boxSize.width - this.props.imagePadding * 2;
 
@@ -325,7 +330,6 @@ class ReactImageLightbox extends Component {
       maxHeight = Math.min(maxHeight, height);
       maxWidth = Math.min(maxWidth, width);
     }
-
     const maxRatio = maxWidth / maxHeight;
     const srcRatio = width / height;
 
@@ -1125,7 +1129,35 @@ class ReactImageLightbox extends Component {
       return;
     }
 
-    const inMemoryImage = new global.Image();
+    let inMemoryImage = null;
+    if (isVideo(imageSrc)) {
+      const el = global.document.createElement('video');
+      el.preload = 'auto';
+      inMemoryImage = el;
+
+      const self = inMemoryImage;
+      inMemoryImage.addEventListener(
+        'loadedmetadata',
+        () => {
+          // retrieve dimensions
+          const height = self.videoHeight;
+          const width = self.videoWidth;
+
+          this.props.onImageLoad(imageSrc, srcType, inMemoryImage);
+
+          this.imageCache[imageSrc] = {
+            loaded: true,
+            width,
+            height,
+          };
+
+          done();
+        },
+        false
+      );
+    } else {
+      inMemoryImage = new global.Image();
+    }
 
     if (this.props.imageCrossOrigin) {
       inMemoryImage.crossOrigin = this.props.imageCrossOrigin;
@@ -1388,20 +1420,32 @@ class ReactImageLightbox extends Component {
         );
       } else {
         images.push(
-          <img
-            {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
-            className={`${imageClass} ril__image`}
-            onDoubleClick={this.handleImageDoubleClick}
-            onWheel={this.handleImageMouseWheel}
-            onDragStart={e => e.preventDefault()}
-            style={imageStyle}
-            src={imageSrc}
-            key={imageSrc + keyEndings[srcType]}
-            alt={
-              typeof imageTitle === 'string' ? imageTitle : translate('Image')
-            }
-            draggable={false}
-          />
+          isVideo(imageSrc) ? (
+            <div style={imageStyle} className={`${imageClass} ril__image`}>
+              <Player
+                videoStyle={{}}
+                videoClassName={null}
+                key={imageSrc + keyEndings[srcType]}
+              >
+                <source src={imageSrc} />
+              </Player>
+            </div>
+          ) : (
+            <img
+              {...(imageCrossOrigin ? { crossOrigin: imageCrossOrigin } : {})}
+              className={`${imageClass} ril__image`}
+              onDoubleClick={this.handleImageDoubleClick}
+              onWheel={this.handleImageMouseWheel}
+              onDragStart={e => e.preventDefault()}
+              style={imageStyle}
+              src={imageSrc}
+              key={imageSrc + keyEndings[srcType]}
+              alt={
+                typeof imageTitle === 'string' ? imageTitle : translate('Image')
+              }
+              draggable={false}
+            />
+          )
         );
       }
     };

@@ -16,6 +16,50 @@ export function translate(str, replaceStrings = null) {
   return translated;
 }
 
+export function isVideo(fileSrc) {
+  // video extensions, cre: https://en.wikipedia.org/wiki/Video_file_format
+  const videoExts = [
+    'webm',
+    'mkv',
+    'flv',
+    'f4v',
+    'f4p',
+    'f4a',
+    'f4b',
+    'vob',
+    'ogv',
+    'ogg',
+    'drc',
+    'gif',
+    'gifv',
+    'mng',
+    'avi',
+    'mov',
+    'qt',
+    'wmv',
+    'yuv',
+    'rm',
+    'rmvb',
+    'asf',
+    'amv',
+    'mp4',
+    'm4p',
+    'm4v',
+    'mpg',
+    'mp2',
+    'mpeg',
+    'mpe',
+    'mpv',
+    'svi',
+    '3gp',
+    '3g2',
+  ];
+
+  return new RegExp(`(${videoExts.join('|').replace(/\./g, '\\.')})$`).test(
+    fileSrc
+  );
+}
+
 export function getWindowWidth() {
   return typeof global.window !== 'undefined' ? global.window.innerWidth : 0;
 }
