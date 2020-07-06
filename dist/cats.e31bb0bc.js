@@ -52702,8 +52702,6 @@ object-assign
           aspectRatio: _propTypes['default'].string,
           className: _propTypes['default'].string,
           videoId: _propTypes['default'].string,
-          videoClassName: _propTypes['default'].string,
-          videoStyle: _propTypes['default'].string,
           startTime: _propTypes['default'].number,
           loop: _propTypes['default'].bool,
           autoPlay: _propTypes['default'].bool,
@@ -52740,8 +52738,6 @@ object-assign
           playsInline: false,
           preload: 'auto',
           aspectRatio: 'auto',
-          videoStyle: '',
-          videoClassName: '',
         };
 
         var Player = /*#__PURE__*/ (function(_Component) {
@@ -52834,9 +52830,6 @@ object-assign
               value: function getDefaultChildren(originalChildren) {
                 var _this2 = this;
 
-                var _this$props = this.props,
-                  videoClassName = _this$props.videoClassName,
-                  videoStyle = _this$props.videoStyle;
                 return [
                   /*#__PURE__*/ _react['default'].createElement(
                     _Video['default'],
@@ -52847,8 +52840,6 @@ object-assign
                       },
                       key: 'video',
                       order: 0.0,
-                      className: videoClassName,
-                      style: videoStyle,
                     },
                     originalChildren
                   ),
@@ -52946,11 +52937,11 @@ object-assign
             {
               key: 'getStyle',
               value: function getStyle() {
-                var _this$props2 = this.props,
-                  fluid = _this$props2.fluid,
-                  propsAspectRatio = _this$props2.aspectRatio,
-                  propsHeight = _this$props2.height,
-                  propsWidth = _this$props2.width;
+                var _this$props = this.props,
+                  fluid = _this$props.fluid,
+                  propsAspectRatio = _this$props.aspectRatio,
+                  propsHeight = _this$props.height,
+                  propsWidth = _this$props.width;
 
                 var _this$manager$getStat = this.manager.getState(),
                   player = _this$manager$getStat.player;
@@ -54438,7 +54429,7 @@ object-assign
 
         require('./style.css');
 
-        require('../node_modules/video-react/dist/video-react.css');
+        require('video-react/dist/video-react.css');
 
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
@@ -56579,6 +56570,7 @@ object-assign
                           ? _react.default.createElement(
                               'div',
                               {
+                                key: imageSrc + keyEndings[srcType],
                                 style: imageStyle,
                                 className: ''.concat(imageClass, ' ril__image'),
                               },
@@ -57072,7 +57064,7 @@ object-assign
         './util': '../../src/util.js',
         './constant': '../../src/constant.js',
         './style.css': '../../src/style.css',
-        '../node_modules/video-react/dist/video-react.css':
+        'video-react/dist/video-react.css':
           '../../node_modules/video-react/dist/video-react.css',
       },
     ],
@@ -57879,7 +57871,7 @@ object-assign
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '58026' + '/'
+            protocol + '://' + hostname + ':' + '64030' + '/'
           );
 
           ws.onmessage = function(event) {

@@ -28,7 +28,7 @@ import {
   MIN_SWIPE_DISTANCE,
 } from './constant';
 import './style.css';
-import '../node_modules/video-react/dist/video-react.css'; // import css
+import 'video-react/dist/video-react.css'; // import css
 
 class ReactImageLightbox extends Component {
   static isTargetMatchImage(target) {
@@ -1421,7 +1421,11 @@ class ReactImageLightbox extends Component {
       } else {
         images.push(
           isVideo(imageSrc) ? (
-            <div style={imageStyle} className={`${imageClass} ril__image`}>
+            <div
+              key={imageSrc + keyEndings[srcType]}
+              style={imageStyle}
+              className={`${imageClass} ril__image`}
+            >
               <Player
                 videoStyle={{}}
                 videoClassName={null}
