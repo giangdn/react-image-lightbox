@@ -16865,6284 +16865,6 @@ parcelRequire = (function(e, r, t, n) {
         './reducers': 'xDa6',
       },
     ],
-    pKIK: [
-      function(require, module, exports) {
-        function t(t, n) {
-          for (var e in n) t.setAttribute(e, n[e]);
-        }
-        function n(t, n) {
-          (t.onload = function() {
-            (this.onerror = this.onload = null), n(null, t);
-          }),
-            (t.onerror = function() {
-              (this.onerror = this.onload = null),
-                n(new Error('Failed to load ' + this.src), t);
-            });
-        }
-        function e(t, n) {
-          t.onreadystatechange = function() {
-            ('complete' != this.readyState && 'loaded' != this.readyState) ||
-              ((this.onreadystatechange = null), n(null, t));
-          };
-        }
-        module.exports = function(o, a, r) {
-          var c = document.head || document.getElementsByTagName('head')[0],
-            i = document.createElement('script');
-          'function' == typeof a && ((r = a), (a = {})),
-            (a = a || {}),
-            (r = r || function() {}),
-            (i.type = a.type || 'text/javascript'),
-            (i.charset = a.charset || 'utf8'),
-            (i.async = !('async' in a) || !!a.async),
-            (i.src = o),
-            a.attrs && t(i, a.attrs),
-            a.text && (i.text = '' + a.text),
-            ('onload' in i ? n : e)(i, r),
-            i.onload || n(i, r),
-            c.appendChild(i);
-        };
-      },
-      {},
-    ],
-    QIvx: [
-      function(require, module, exports) {
-        'use strict';
-        var r = function(r) {
-          return e(r) && !t(r);
-        };
-        function e(r) {
-          return !!r && 'object' == typeof r;
-        }
-        function t(r) {
-          var e = Object.prototype.toString.call(r);
-          return '[object RegExp]' === e || '[object Date]' === e || c(r);
-        }
-        var n = 'function' == typeof Symbol && Symbol.for,
-          o = n ? Symbol.for('react.element') : 60103;
-        function c(r) {
-          return r.$$typeof === o;
-        }
-        function u(r) {
-          return Array.isArray(r) ? [] : {};
-        }
-        function a(r, e) {
-          return !1 !== e.clone && e.isMergeableObject(r) ? g(u(r), r, e) : r;
-        }
-        function i(r, e, t) {
-          return r.concat(e).map(function(r) {
-            return a(r, t);
-          });
-        }
-        function f(r, e) {
-          if (!e.customMerge) return g;
-          var t = e.customMerge(r);
-          return 'function' == typeof t ? t : g;
-        }
-        function y(r) {
-          return Object.getOwnPropertySymbols
-            ? Object.getOwnPropertySymbols(r).filter(function(e) {
-                return r.propertyIsEnumerable(e);
-              })
-            : [];
-        }
-        function b(r) {
-          return Object.keys(r).concat(y(r));
-        }
-        function l(r, e) {
-          try {
-            return e in r;
-          } catch (t) {
-            return !1;
-          }
-        }
-        function s(r, e) {
-          return (
-            l(r, e) &&
-            !(
-              Object.hasOwnProperty.call(r, e) &&
-              Object.propertyIsEnumerable.call(r, e)
-            )
-          );
-        }
-        function p(r, e, t) {
-          var n = {};
-          return (
-            t.isMergeableObject(r) &&
-              b(r).forEach(function(e) {
-                n[e] = a(r[e], t);
-              }),
-            b(e).forEach(function(o) {
-              s(r, o) ||
-                (l(r, o) && t.isMergeableObject(e[o])
-                  ? (n[o] = f(o, t)(r[o], e[o], t))
-                  : (n[o] = a(e[o], t)));
-            }),
-            n
-          );
-        }
-        function g(e, t, n) {
-          ((n = n || {}).arrayMerge = n.arrayMerge || i),
-            (n.isMergeableObject = n.isMergeableObject || r),
-            (n.cloneUnlessOtherwiseSpecified = a);
-          var o = Array.isArray(t);
-          return o === Array.isArray(e)
-            ? o
-              ? n.arrayMerge(e, t, n)
-              : p(e, t, n)
-            : a(t, n);
-        }
-        g.all = function(r, e) {
-          if (!Array.isArray(r))
-            throw new Error('first argument should be an array');
-          return r.reduce(function(r, t) {
-            return g(r, t, e);
-          }, {});
-        };
-        var O = g;
-        module.exports = O;
-      },
-      {},
-    ],
-    pL11: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.parseStartTime = v),
-          (exports.parseEndTime = y),
-          (exports.randomString = h),
-          (exports.queryString = m),
-          (exports.getSDK = x),
-          (exports.getConfig = S),
-          (exports.omit = j),
-          (exports.callPlayer = A),
-          (exports.isMediaStream = M),
-          (exports.supportsWebKitPresentationMode = P);
-        var e = r(require('load-script')),
-          t = r(require('deepmerge'));
-        function r(e) {
-          return e && e.__esModule ? e : { default: e };
-        }
-        function n(e, t) {
-          return c(e) || u(e, t) || i(e, t) || o();
-        }
-        function o() {
-          throw new TypeError(
-            'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
-          );
-        }
-        function i(e, t) {
-          if (e) {
-            if ('string' == typeof e) return a(e, t);
-            var r = Object.prototype.toString.call(e).slice(8, -1);
-            return (
-              'Object' === r && e.constructor && (r = e.constructor.name),
-              'Map' === r || 'Set' === r
-                ? Array.from(e)
-                : 'Arguments' === r ||
-                  /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)
-                ? a(e, t)
-                : void 0
-            );
-          }
-        }
-        function a(e, t) {
-          (null == t || t > e.length) && (t = e.length);
-          for (var r = 0, n = new Array(t); r < t; r++) n[r] = e[r];
-          return n;
-        }
-        function u(e, t) {
-          if ('undefined' != typeof Symbol && Symbol.iterator in Object(e)) {
-            var r = [],
-              n = !0,
-              o = !1,
-              i = void 0;
-            try {
-              for (
-                var a, u = e[Symbol.iterator]();
-                !(n = (a = u.next()).done) &&
-                (r.push(a.value), !t || r.length !== t);
-                n = !0
-              );
-            } catch (c) {
-              (o = !0), (i = c);
-            } finally {
-              try {
-                n || null == u.return || u.return();
-              } finally {
-                if (o) throw i;
-              }
-            }
-            return r;
-          }
-        }
-        function c(e) {
-          if (Array.isArray(e)) return e;
-        }
-        var l = /[?&#](?:start|t)=([0-9hms]+)/,
-          s = /[?&#]end=([0-9hms]+)/,
-          f = /(\d+)(h|m|s)/g,
-          d = /^\d+$/;
-        function p(e, t) {
-          if (!(e instanceof Array)) {
-            var r = e.match(t);
-            if (r) {
-              var n = r[1];
-              if (n.match(f)) return w(n);
-              if (d.test(n)) return parseInt(n);
-            }
-          }
-        }
-        function w(e) {
-          for (var t = 0, r = f.exec(e); null !== r; ) {
-            var o = n(r, 3),
-              i = o[1],
-              a = o[2];
-            'h' === a && (t += 60 * parseInt(i, 10) * 60),
-              'm' === a && (t += 60 * parseInt(i, 10)),
-              's' === a && (t += parseInt(i, 10)),
-              (r = f.exec(e));
-          }
-          return t;
-        }
-        function v(e) {
-          return p(e, l);
-        }
-        function y(e) {
-          return p(e, s);
-        }
-        function h() {
-          return Math.random()
-            .toString(36)
-            .substr(2, 5);
-        }
-        function m(e) {
-          return Object.keys(e)
-            .map(function(t) {
-              return ''.concat(t, '=').concat(e[t]);
-            })
-            .join('&');
-        }
-        function g(e) {
-          return window[e]
-            ? window[e]
-            : window.exports && window.exports[e]
-            ? window.exports[e]
-            : window.module && window.module.exports && window.module.exports[e]
-            ? window.module.exports[e]
-            : null;
-        }
-        var b = {};
-        function x(t, r) {
-          var n =
-              arguments.length > 2 && void 0 !== arguments[2]
-                ? arguments[2]
-                : null,
-            o =
-              arguments.length > 3 && void 0 !== arguments[3]
-                ? arguments[3]
-                : function() {
-                    return !0;
-                  },
-            i =
-              arguments.length > 4 && void 0 !== arguments[4]
-                ? arguments[4]
-                : e.default,
-            a = g(r);
-          return a && o(a)
-            ? Promise.resolve(a)
-            : new Promise(function(e, o) {
-                if (b[t]) b[t].push({ resolve: e, reject: o });
-                else {
-                  b[t] = [{ resolve: e, reject: o }];
-                  var a = function(e) {
-                    b[t].forEach(function(t) {
-                      return t.resolve(e);
-                    });
-                  };
-                  if (n) {
-                    var u = window[n];
-                    window[n] = function() {
-                      u && u(), a(g(r));
-                    };
-                  }
-                  i(t, function(e) {
-                    e
-                      ? (b[t].forEach(function(t) {
-                          return t.reject(e);
-                        }),
-                        (b[t] = null))
-                      : n || a(g(r));
-                  });
-                }
-              });
-        }
-        function S(e, r) {
-          return (0, t.default)(r.config, e.config);
-        }
-        function j(e) {
-          for (
-            var t,
-              r = arguments.length,
-              n = new Array(r > 1 ? r - 1 : 0),
-              o = 1;
-            o < r;
-            o++
-          )
-            n[o - 1] = arguments[o];
-          for (
-            var i = (t = []).concat.apply(t, n),
-              a = {},
-              u = 0,
-              c = Object.keys(e);
-            u < c.length;
-            u++
-          ) {
-            var l = c[u];
-            -1 === i.indexOf(l) && (a[l] = e[l]);
-          }
-          return a;
-        }
-        function A(e) {
-          var t;
-          if (!this.player || !this.player[e]) {
-            var r = 'ReactPlayer: '
-              .concat(this.constructor.displayName, ' player could not call %c')
-              .concat(e, '%c – ');
-            return (
-              this.player
-                ? this.player[e] || (r += 'The method was not available')
-                : (r += 'The player was not available'),
-              console.warn(r, 'font-weight: bold', ''),
-              null
-            );
-          }
-          for (
-            var n = arguments.length, o = new Array(n > 1 ? n - 1 : 0), i = 1;
-            i < n;
-            i++
-          )
-            o[i - 1] = arguments[i];
-          return (t = this.player)[e].apply(t, o);
-        }
-        function M(e) {
-          return (
-            'undefined' != typeof window &&
-            void 0 !== window.MediaStream &&
-            e instanceof window.MediaStream
-          );
-        }
-        function P() {
-          var e =
-              arguments.length > 0 && void 0 !== arguments[0]
-                ? arguments[0]
-                : document.createElement('video'),
-            t = !1 === /iPhone|iPod/.test(navigator.userAgent);
-          return (
-            e.webkitSupportsPresentationMode &&
-            'function' == typeof e.webkitSetPresentationMode &&
-            t
-          );
-        }
-      },
-      { 'load-script': 'pKIK', deepmerge: 'QIvx' },
-    ],
-    TK7v: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.canPlay = exports.FLV_EXTENSIONS = exports.DASH_EXTENSIONS = exports.HLS_EXTENSIONS = exports.VIDEO_EXTENSIONS = exports.AUDIO_EXTENSIONS = exports.MATCH_URL_VIDYARD = exports.MATCH_URL_MIXCLOUD = exports.MATCH_URL_DAILYMOTION = exports.MATCH_URL_TWITCH_CHANNEL = exports.MATCH_URL_TWITCH_VIDEO = exports.MATCH_URL_WISTIA = exports.MATCH_URL_STREAMABLE = exports.MATCH_URL_FACEBOOK = exports.MATCH_URL_VIMEO = exports.MATCH_URL_SOUNDCLOUD = exports.MATCH_URL_YOUTUBE = void 0);
-        var t = require('./utils');
-        function e(t, e) {
-          var o;
-          if ('undefined' == typeof Symbol || null == t[Symbol.iterator]) {
-            if (
-              Array.isArray(t) ||
-              (o = r(t)) ||
-              (e && t && 'number' == typeof t.length)
-            ) {
-              o && (t = o);
-              var n = 0,
-                a = function() {};
-              return {
-                s: a,
-                n: function() {
-                  return n >= t.length
-                    ? { done: !0 }
-                    : { done: !1, value: t[n++] };
-                },
-                e: function(t) {
-                  throw t;
-                },
-                f: a,
-              };
-            }
-            throw new TypeError(
-              'Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
-            );
-          }
-          var s,
-            i = !0,
-            u = !1;
-          return {
-            s: function() {
-              o = t[Symbol.iterator]();
-            },
-            n: function() {
-              var t = o.next();
-              return (i = t.done), t;
-            },
-            e: function(t) {
-              (u = !0), (s = t);
-            },
-            f: function() {
-              try {
-                i || null == o.return || o.return();
-              } finally {
-                if (u) throw s;
-              }
-            },
-          };
-        }
-        function r(t, e) {
-          if (t) {
-            if ('string' == typeof t) return o(t, e);
-            var r = Object.prototype.toString.call(t).slice(8, -1);
-            return (
-              'Object' === r && t.constructor && (r = t.constructor.name),
-              'Map' === r || 'Set' === r
-                ? Array.from(t)
-                : 'Arguments' === r ||
-                  /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)
-                ? o(t, e)
-                : void 0
-            );
-          }
-        }
-        function o(t, e) {
-          (null == e || e > t.length) && (e = t.length);
-          for (var r = 0, o = new Array(e); r < e; r++) o[r] = t[r];
-          return o;
-        }
-        var n = /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})|youtube\.com\/playlist\?list=|youtube\.com\/user\//;
-        exports.MATCH_URL_YOUTUBE = n;
-        var a = /(?:soundcloud\.com|snd\.sc)\/[^.]+$/;
-        exports.MATCH_URL_SOUNDCLOUD = a;
-        var s = /vimeo\.com\/.+/;
-        exports.MATCH_URL_VIMEO = s;
-        var i = /^https?:\/\/(www\.)?facebook\.com.*\/(video(s)?|watch|story)(\.php?|\/).+$/;
-        exports.MATCH_URL_FACEBOOK = i;
-        var u = /streamable\.com\/([a-z0-9]+)$/;
-        exports.MATCH_URL_STREAMABLE = u;
-        var c = /(?:wistia\.com|wi\.st)\/(?:medias|embed)\/(.*)$/;
-        exports.MATCH_URL_WISTIA = c;
-        var _ = /(?:www\.|go\.)?twitch\.tv\/videos\/(\d+)($|\?)/;
-        exports.MATCH_URL_TWITCH_VIDEO = _;
-        var p = /(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)($|\?)/;
-        exports.MATCH_URL_TWITCH_CHANNEL = p;
-        var v = /^(?:(?:https?):)?(?:\/\/)?(?:www\.)?(?:(?:dailymotion\.com(?:\/embed)?\/video)|dai\.ly)\/([a-zA-Z0-9]+)(?:_[\w_-]+)?$/;
-        exports.MATCH_URL_DAILYMOTION = v;
-        var A = /mixcloud\.com\/([^/]+\/[^/]+)/;
-        exports.MATCH_URL_MIXCLOUD = A;
-        var f = /vidyard.com\/(?:watch\/)?([a-zA-Z0-9-]+)/;
-        exports.MATCH_URL_VIDYARD = f;
-        var m = /\.(m4a|mp4a|mpga|mp2|mp2a|mp3|m2a|m3a|wav|weba|aac|oga|spx)($|\?)/i;
-        exports.AUDIO_EXTENSIONS = m;
-        var T = /\.(mp4|og[gv]|webm|mov|m4v)($|\?)/i;
-        exports.VIDEO_EXTENSIONS = T;
-        var l = /\.(m3u8)($|\?)/i;
-        exports.HLS_EXTENSIONS = l;
-        var x = /\.(mpd)($|\?)/i;
-        exports.DASH_EXTENSIONS = x;
-        var d = /\.(flv)($|\?)/i;
-        exports.FLV_EXTENSIONS = d;
-        var y = function r(o) {
-            if (o instanceof Array) {
-              var n,
-                a = e(o);
-              try {
-                for (a.s(); !(n = a.n()).done; ) {
-                  var s = n.value;
-                  if ('string' == typeof s && r(s)) return !0;
-                  if (r(s.src)) return !0;
-                }
-              } catch (i) {
-                a.e(i);
-              } finally {
-                a.f();
-              }
-              return !1;
-            }
-            return (
-              !!(0, t.isMediaStream)(o) ||
-              m.test(o) || T.test(o) || l.test(o) || x.test(o) || d.test(o)
-            );
-          },
-          E = {
-            youtube: function(t) {
-              return t instanceof Array
-                ? t.every(function(t) {
-                    return n.test(t);
-                  })
-                : n.test(t);
-            },
-            soundcloud: function(t) {
-              return a.test(t) && !m.test(t);
-            },
-            vimeo: function(t) {
-              return s.test(t) && !T.test(t) && !l.test(t);
-            },
-            facebook: function(t) {
-              return i.test(t);
-            },
-            streamable: function(t) {
-              return u.test(t);
-            },
-            wistia: function(t) {
-              return c.test(t);
-            },
-            twitch: function(t) {
-              return _.test(t) || p.test(t);
-            },
-            dailymotion: function(t) {
-              return v.test(t);
-            },
-            mixcloud: function(t) {
-              return A.test(t);
-            },
-            vidyard: function(t) {
-              return f.test(t);
-            },
-            file: y,
-          };
-        exports.canPlay = E;
-      },
-      { './utils': 'pL11' },
-    ],
-    XVUi: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== a(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var i in e)
-            if (Object.prototype.hasOwnProperty.call(e, i)) {
-              var u = o ? Object.getOwnPropertyDescriptor(e, i) : null;
-              u && (u.get || u.set)
-                ? Object.defineProperty(r, i, u)
-                : (r[i] = e[i]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function a(e) {
-          return (a =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function i(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function u(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? i(Object(r), !0).forEach(function(t) {
-                  S(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : i(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function l(e, t) {
-          return p(e) || y(e, t) || s(e, t) || c();
-        }
-        function c() {
-          throw new TypeError(
-            'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
-          );
-        }
-        function s(e, t) {
-          if (e) {
-            if ('string' == typeof e) return f(e, t);
-            var r = Object.prototype.toString.call(e).slice(8, -1);
-            return (
-              'Object' === r && e.constructor && (r = e.constructor.name),
-              'Map' === r || 'Set' === r
-                ? Array.from(e)
-                : 'Arguments' === r ||
-                  /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)
-                ? f(e, t)
-                : void 0
-            );
-          }
-        }
-        function f(e, t) {
-          (null == t || t > e.length) && (t = e.length);
-          for (var r = 0, n = new Array(t); r < t; r++) n[r] = e[r];
-          return n;
-        }
-        function y(e, t) {
-          if ('undefined' != typeof Symbol && Symbol.iterator in Object(e)) {
-            var r = [],
-              n = !0,
-              o = !1,
-              a = void 0;
-            try {
-              for (
-                var i, u = e[Symbol.iterator]();
-                !(n = (i = u.next()).done) &&
-                (r.push(i.value), !t || r.length !== t);
-                n = !0
-              );
-            } catch (l) {
-              (o = !0), (a = l);
-            } finally {
-              try {
-                n || null == u.return || u.return();
-              } finally {
-                if (o) throw a;
-              }
-            }
-            return r;
-          }
-        }
-        function p(e) {
-          if (Array.isArray(e)) return e;
-        }
-        function d(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function h(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function b(e, t, r) {
-          return t && h(e.prototype, t), r && h(e, r), e;
-        }
-        function v(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && m(e, t);
-        }
-        function m(e, t) {
-          return (m =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function P(e) {
-          var t = w();
-          return function() {
-            var r,
-              n = j(e);
-            if (t) {
-              var o = j(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return g(this, r);
-          };
-        }
-        function g(e, t) {
-          return !t || ('object' !== a(t) && 'function' != typeof t) ? O(e) : t;
-        }
-        function O(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function w() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function j(e) {
-          return (j = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function S(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var k = 'https://www.youtube.com/iframe_api',
-          T = 'YT',
-          D = 'onYouTubeIframeAPIReady',
-          E = /list=([a-zA-Z0-9_-]+)/,
-          _ = /user\/([a-zA-Z0-9_-]+)\/?/,
-          A = /youtube-nocookie\.com/,
-          R = 'https://www.youtube-nocookie.com',
-          I = (function(n) {
-            v(a, e.Component);
-            var o = P(a);
-            function a() {
-              var e;
-              d(this, a);
-              for (
-                var r = arguments.length, n = new Array(r), i = 0;
-                i < r;
-                i++
-              )
-                n[i] = arguments[i];
-              return (
-                S(
-                  O((e = o.call.apply(o, [this].concat(n)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                S(O(e), 'parsePlaylist', function(t) {
-                  return t instanceof Array
-                    ? {
-                        listType: 'playlist',
-                        playlist: t.map(e.getID).join(','),
-                      }
-                    : E.test(t)
-                    ? { listType: 'playlist', list: l(t.match(E), 2)[1] }
-                    : _.test(t)
-                    ? { listType: 'user_uploads', list: l(t.match(_), 2)[1] }
-                    : {};
-                }),
-                S(O(e), 'onStateChange', function(t) {
-                  var r = t.data,
-                    n = e.props,
-                    o = n.onPlay,
-                    a = n.onPause,
-                    i = n.onBuffer,
-                    u = n.onBufferEnd,
-                    l = n.onEnded,
-                    c = n.onReady,
-                    s = n.loop,
-                    f = n.config,
-                    y = f.playerVars,
-                    p = f.onUnstarted,
-                    d = window[T].PlayerState,
-                    h = d.UNSTARTED,
-                    b = d.PLAYING,
-                    v = d.PAUSED,
-                    m = d.BUFFERING,
-                    P = d.ENDED,
-                    g = d.CUED;
-                  if (
-                    (r === h && p(),
-                    r === b && (o(), u()),
-                    r === v && a(),
-                    r === m && i(),
-                    r === P)
-                  ) {
-                    var O = !!e.callPlayer('getPlaylist');
-                    s && !O && (y.start ? e.seekTo(y.start) : e.play()), l();
-                  }
-                  r === g && c();
-                }),
-                S(O(e), 'mute', function() {
-                  e.callPlayer('mute');
-                }),
-                S(O(e), 'unmute', function() {
-                  e.callPlayer('unMute');
-                }),
-                S(O(e), 'ref', function(t) {
-                  e.container = t;
-                }),
-                e
-              );
-            }
-            return (
-              b(a, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'getID',
-                  value: function(e) {
-                    return !e || e instanceof Array
-                      ? null
-                      : e.match(r.MATCH_URL_YOUTUBE)[1];
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e, r) {
-                    var n = this,
-                      o = this.props,
-                      a = o.playing,
-                      i = o.muted,
-                      l = o.playsinline,
-                      c = o.controls,
-                      s = o.loop,
-                      f = o.config,
-                      y = o.onError,
-                      p = f.playerVars,
-                      d = f.embedOptions,
-                      h = this.getID(e);
-                    if (r)
-                      return E.test(e) || _.test(e) || e instanceof Array
-                        ? void this.player.loadPlaylist(this.parsePlaylist(e))
-                        : void this.player.cueVideoById({
-                            videoId: h,
-                            startSeconds: (0, t.parseStartTime)(e) || p.start,
-                            endSeconds: (0, t.parseEndTime)(e) || p.end,
-                          });
-                    (0, t.getSDK)(k, T, D, function(e) {
-                      return e.loaded;
-                    }).then(function(r) {
-                      n.container &&
-                        (n.player = new r.Player(
-                          n.container,
-                          u(
-                            {
-                              width: '100%',
-                              height: '100%',
-                              videoId: h,
-                              playerVars: u(
-                                u(
-                                  {
-                                    autoplay: a ? 1 : 0,
-                                    mute: i ? 1 : 0,
-                                    controls: c ? 1 : 0,
-                                    start: (0, t.parseStartTime)(e),
-                                    end: (0, t.parseEndTime)(e),
-                                    origin: window.location.origin,
-                                    playsinline: l,
-                                  },
-                                  n.parsePlaylist(e)
-                                ),
-                                p
-                              ),
-                              events: {
-                                onReady: function() {
-                                  s && n.player.setLoop(!0), n.props.onReady();
-                                },
-                                onStateChange: n.onStateChange,
-                                onError: function(e) {
-                                  return y(e.data);
-                                },
-                              },
-                              host: A.test(e) ? R : void 0,
-                            },
-                            d
-                          )
-                        ));
-                    }, y);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('playVideo');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pauseVideo');
-                  },
-                },
-                {
-                  key: 'stop',
-                  value: function() {
-                    document.body.contains(this.callPlayer('getIframe')) &&
-                      this.callPlayer('stopVideo');
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seekTo', e),
-                      this.props.playing || this.pause();
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', 100 * e);
-                  },
-                },
-                {
-                  key: 'setPlaybackRate',
-                  value: function(e) {
-                    this.callPlayer('setPlaybackRate', e);
-                  },
-                },
-                {
-                  key: 'setLoop',
-                  value: function(e) {
-                    this.callPlayer('setLoop', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.callPlayer('getDuration');
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.callPlayer('getCurrentTime');
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return (
-                      this.callPlayer('getVideoLoadedFraction') *
-                      this.getDuration()
-                    );
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = {
-                      width: '100%',
-                      height: '100%',
-                      display: this.props.display,
-                    };
-                    return e.default.createElement(
-                      'div',
-                      { style: t },
-                      e.default.createElement('div', { ref: this.ref })
-                    );
-                  },
-                },
-              ]),
-              a
-            );
-          })();
-        (exports.default = I),
-          S(I, 'displayName', 'YouTube'),
-          S(I, 'canPlay', r.canPlay.youtube);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    dbuc: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== u(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var i in e)
-            if (Object.prototype.hasOwnProperty.call(e, i)) {
-              var c = o ? Object.getOwnPropertyDescriptor(e, i) : null;
-              c && (c.get || c.set)
-                ? Object.defineProperty(r, i, c)
-                : (r[i] = e[i]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function u(e) {
-          return (u =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function i(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function c(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? i(Object(r), !0).forEach(function(t) {
-                  m(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : i(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function a(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function l(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function f(e, t, r) {
-          return t && l(e.prototype, t), r && l(e, r), e;
-        }
-        function p(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && s(e, t);
-        }
-        function s(e, t) {
-          return (s =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function y(e) {
-          var t = h();
-          return function() {
-            var r,
-              n = v(e);
-            if (t) {
-              var o = v(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return d(this, r);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== u(t) && 'function' != typeof t) ? b(e) : t;
-        }
-        function b(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function h() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function v(e) {
-          return (v = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function m(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var O = 'https://w.soundcloud.com/player/api.js',
-          P = 'SC',
-          g = (function(r) {
-            p(o, e.Component);
-            var n = y(o);
-            function o() {
-              var e;
-              a(this, o);
-              for (
-                var r = arguments.length, u = new Array(r), i = 0;
-                i < r;
-                i++
-              )
-                u[i] = arguments[i];
-              return (
-                m(
-                  b((e = n.call.apply(n, [this].concat(u)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                m(b(e), 'duration', null),
-                m(b(e), 'currentTime', null),
-                m(b(e), 'fractionLoaded', null),
-                m(b(e), 'mute', function() {
-                  e.setVolume(0);
-                }),
-                m(b(e), 'unmute', function() {
-                  null !== e.props.volume && e.setVolume(e.props.volume);
-                }),
-                m(b(e), 'ref', function(t) {
-                  e.iframe = t;
-                }),
-                e
-              );
-            }
-            return (
-              f(o, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e, r) {
-                    var n = this;
-                    (0, t.getSDK)(O, P).then(function(t) {
-                      if (n.iframe) {
-                        var o = t.Widget.Events,
-                          u = o.PLAY,
-                          i = o.PLAY_PROGRESS,
-                          a = o.PAUSE,
-                          l = o.FINISH,
-                          f = o.ERROR;
-                        r ||
-                          ((n.player = t.Widget(n.iframe)),
-                          n.player.bind(u, n.props.onPlay),
-                          n.player.bind(a, function() {
-                            n.duration - n.currentTime < 0.05 ||
-                              n.props.onPause();
-                          }),
-                          n.player.bind(i, function(e) {
-                            (n.currentTime = e.currentPosition / 1e3),
-                              (n.fractionLoaded = e.loadedProgress);
-                          }),
-                          n.player.bind(l, function() {
-                            return n.props.onEnded();
-                          }),
-                          n.player.bind(f, function(e) {
-                            return n.props.onError(e);
-                          })),
-                          n.player.load(
-                            e,
-                            c(
-                              c({}, n.props.config.options),
-                              {},
-                              {
-                                callback: function() {
-                                  n.player.getDuration(function(e) {
-                                    (n.duration = e / 1e3), n.props.onReady();
-                                  });
-                                },
-                              }
-                            )
-                          );
-                      }
-                    });
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                { key: 'stop', value: function() {} },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seekTo', 1e3 * e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', 100 * e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.duration;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.currentTime;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return this.fractionLoaded * this.duration;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = {
-                      width: '100%',
-                      height: '100%',
-                      display: this.props.display,
-                    };
-                    return e.default.createElement('iframe', {
-                      ref: this.ref,
-                      src: 'https://w.soundcloud.com/player/?url='.concat(
-                        encodeURIComponent(this.props.url)
-                      ),
-                      style: t,
-                      frameBorder: 0,
-                      allow: 'autoplay',
-                    });
-                  },
-                },
-              ]),
-              o
-            );
-          })();
-        (exports.default = g),
-          m(g, 'displayName', 'SoundCloud'),
-          m(g, 'canPlay', r.canPlay.soundcloud),
-          m(g, 'loopOnEnded', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    vdeO: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== u(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var i in e)
-            if (Object.prototype.hasOwnProperty.call(e, i)) {
-              var a = o ? Object.getOwnPropertyDescriptor(e, i) : null;
-              a && (a.get || a.set)
-                ? Object.defineProperty(r, i, a)
-                : (r[i] = e[i]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function u(e) {
-          return (u =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function i(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function a(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? i(Object(r), !0).forEach(function(t) {
-                  m(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : i(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function c(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function l(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function p(e, t, r) {
-          return t && l(e.prototype, t), r && l(e, r), e;
-        }
-        function s(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && f(e, t);
-        }
-        function f(e, t) {
-          return (f =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function y(e) {
-          var t = v();
-          return function() {
-            var r,
-              n = b(e);
-            if (t) {
-              var o = b(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return d(this, r);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== u(t) && 'function' != typeof t) ? h(e) : t;
-        }
-        function h(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function v() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function b(e) {
-          return (b = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function m(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var O = 'https://player.vimeo.com/api/player.js',
-          P = 'Vimeo',
-          g = (function(r) {
-            s(o, e.Component);
-            var n = y(o);
-            function o() {
-              var e;
-              c(this, o);
-              for (
-                var r = arguments.length, u = new Array(r), i = 0;
-                i < r;
-                i++
-              )
-                u[i] = arguments[i];
-              return (
-                m(
-                  h((e = n.call.apply(n, [this].concat(u)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                m(h(e), 'duration', null),
-                m(h(e), 'currentTime', null),
-                m(h(e), 'secondsLoaded', null),
-                m(h(e), 'mute', function() {
-                  e.setVolume(0);
-                }),
-                m(h(e), 'unmute', function() {
-                  null !== e.props.volume && e.setVolume(e.props.volume);
-                }),
-                m(h(e), 'ref', function(t) {
-                  e.container = t;
-                }),
-                e
-              );
-            }
-            return (
-              p(o, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var r = this;
-                    (this.duration = null),
-                      (0, t.getSDK)(O, P).then(function(t) {
-                        r.container &&
-                          ((r.player = new t.Player(
-                            r.container,
-                            a(
-                              {
-                                url: e,
-                                autoplay: r.props.playing,
-                                muted: r.props.muted,
-                                loop: r.props.loop,
-                                playsinline: r.props.playsinline,
-                                controls: r.props.controls,
-                              },
-                              r.props.config.playerOptions
-                            )
-                          )),
-                          r.player
-                            .ready()
-                            .then(function() {
-                              var e = r.container.querySelector('iframe');
-                              (e.style.width = '100%'),
-                                (e.style.height = '100%');
-                            })
-                            .catch(r.props.onError),
-                          r.player.on('loaded', function() {
-                            r.props.onReady(), r.refreshDuration();
-                          }),
-                          r.player.on('play', function() {
-                            r.props.onPlay(), r.refreshDuration();
-                          }),
-                          r.player.on('pause', r.props.onPause),
-                          r.player.on('seeked', function(e) {
-                            return r.props.onSeek(e.seconds);
-                          }),
-                          r.player.on('ended', r.props.onEnded),
-                          r.player.on('error', r.props.onError),
-                          r.player.on('timeupdate', function(e) {
-                            var t = e.seconds;
-                            r.currentTime = t;
-                          }),
-                          r.player.on('progress', function(e) {
-                            var t = e.seconds;
-                            r.secondsLoaded = t;
-                          }));
-                      }, this.props.onError);
-                  },
-                },
-                {
-                  key: 'refreshDuration',
-                  value: function() {
-                    var e = this;
-                    this.player.getDuration().then(function(t) {
-                      e.duration = t;
-                    });
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    var e = this.callPlayer('play');
-                    e && e.catch(this.props.onError);
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                {
-                  key: 'stop',
-                  value: function() {
-                    this.callPlayer('unload');
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('setCurrentTime', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', e);
-                  },
-                },
-                {
-                  key: 'setLoop',
-                  value: function(e) {
-                    this.callPlayer('setLoop', e);
-                  },
-                },
-                {
-                  key: 'setPlaybackRate',
-                  value: function(e) {
-                    this.callPlayer('setPlaybackRate', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.duration;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.currentTime;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return this.secondsLoaded;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = {
-                      width: '100%',
-                      height: '100%',
-                      overflow: 'hidden',
-                      display: this.props.display,
-                    };
-                    return e.default.createElement('div', {
-                      key: this.props.url,
-                      ref: this.ref,
-                      style: t,
-                    });
-                  },
-                },
-              ]),
-              o
-            );
-          })();
-        (exports.default = g),
-          m(g, 'displayName', 'Vimeo'),
-          m(g, 'canPlay', r.canPlay.vimeo),
-          m(g, 'forceLoad', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    zO5G: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== u(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var a in e)
-            if (Object.prototype.hasOwnProperty.call(e, a)) {
-              var i = o ? Object.getOwnPropertyDescriptor(e, a) : null;
-              i && (i.get || i.set)
-                ? Object.defineProperty(r, a, i)
-                : (r[a] = e[a]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function u(e) {
-          return (u =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function a(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function i(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function l(e, t, r) {
-          return t && i(e.prototype, t), r && i(e, r), e;
-        }
-        function c(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && s(e, t);
-        }
-        function s(e, t) {
-          return (s =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function f(e) {
-          var t = b();
-          return function() {
-            var r,
-              n = d(e);
-            if (t) {
-              var o = d(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return p(this, r);
-          };
-        }
-        function p(e, t) {
-          return !t || ('object' !== u(t) && 'function' != typeof t) ? y(e) : t;
-        }
-        function y(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function b() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function d(e) {
-          return (d = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function v(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var h = 'https://connect.facebook.net/en_US/sdk.js',
-          m = 'FB',
-          P = 'fbAsyncInit',
-          g = 'facebook-player-',
-          k = (function(r) {
-            c(o, e.Component);
-            var n = f(o);
-            function o() {
-              var e;
-              a(this, o);
-              for (
-                var r = arguments.length, u = new Array(r), i = 0;
-                i < r;
-                i++
-              )
-                u[i] = arguments[i];
-              return (
-                v(
-                  y((e = n.call.apply(n, [this].concat(u)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                v(
-                  y(e),
-                  'playerID',
-                  e.props.config.playerId ||
-                    ''.concat(g).concat((0, t.randomString)())
-                ),
-                v(y(e), 'mute', function() {
-                  e.callPlayer('mute');
-                }),
-                v(y(e), 'unmute', function() {
-                  e.callPlayer('unmute');
-                }),
-                e
-              );
-            }
-            return (
-              l(o, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e, r) {
-                    var n = this;
-                    r
-                      ? (0, t.getSDK)(h, m, P).then(function(e) {
-                          return e.XFBML.parse();
-                        })
-                      : (0, t.getSDK)(h, m, P).then(function(e) {
-                          e.init({
-                            appId: n.props.config.appId,
-                            xfbml: !0,
-                            version: n.props.config.version,
-                          }),
-                            e.Event.subscribe('xfbml.render', function(e) {
-                              n.props.onLoaded();
-                            }),
-                            e.Event.subscribe('xfbml.ready', function(e) {
-                              'video' === e.type &&
-                                e.id === n.playerID &&
-                                ((n.player = e.instance),
-                                n.player.subscribe(
-                                  'startedPlaying',
-                                  n.props.onPlay
-                                ),
-                                n.player.subscribe('paused', n.props.onPause),
-                                n.player.subscribe(
-                                  'finishedPlaying',
-                                  n.props.onEnded
-                                ),
-                                n.player.subscribe(
-                                  'startedBuffering',
-                                  n.props.onBuffer
-                                ),
-                                n.player.subscribe(
-                                  'finishedBuffering',
-                                  n.props.onBufferEnd
-                                ),
-                                n.player.subscribe('error', n.props.onError),
-                                n.props.muted || n.callPlayer('unmute'),
-                                n.props.onReady(),
-                                (document
-                                  .getElementById(n.playerID)
-                                  .querySelector('iframe').style.visibility =
-                                  'visible'));
-                            });
-                        });
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                { key: 'stop', value: function() {} },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seek', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.callPlayer('getDuration');
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.callPlayer('getCurrentPosition');
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return null;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    return e.default.createElement('div', {
-                      style: { width: '100%', height: '100%' },
-                      id: this.playerID,
-                      className: 'fb-video',
-                      'data-href': this.props.url,
-                      'data-autoplay': this.props.playing ? 'true' : 'false',
-                      'data-allowfullscreen': 'true',
-                      'data-controls': this.props.controls ? 'true' : 'false',
-                    });
-                  },
-                },
-              ]),
-              o
-            );
-          })();
-        (exports.default = k),
-          v(k, 'displayName', 'Facebook'),
-          v(k, 'canPlay', r.canPlay.facebook),
-          v(k, 'loopOnEnded', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    uWAH: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== u(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var a in e)
-            if (Object.prototype.hasOwnProperty.call(e, a)) {
-              var l = o ? Object.getOwnPropertyDescriptor(e, a) : null;
-              l && (l.get || l.set)
-                ? Object.defineProperty(r, a, l)
-                : (r[a] = e[a]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function u(e) {
-          return (u =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function a(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function l(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function i(e, t, r) {
-          return t && l(e.prototype, t), r && l(e, r), e;
-        }
-        function c(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && f(e, t);
-        }
-        function f(e, t) {
-          return (f =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function p(e) {
-          var t = d();
-          return function() {
-            var r,
-              n = m(e);
-            if (t) {
-              var o = m(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return s(this, r);
-          };
-        }
-        function s(e, t) {
-          return !t || ('object' !== u(t) && 'function' != typeof t) ? y(e) : t;
-        }
-        function y(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function d() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function m(e) {
-          return (m = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function h(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var b = 'https://cdn.embed.ly/player-0.1.0.min.js',
-          v = 'playerjs',
-          P = (function(n) {
-            c(u, e.Component);
-            var o = p(u);
-            function u() {
-              var e;
-              a(this, u);
-              for (
-                var r = arguments.length, n = new Array(r), l = 0;
-                l < r;
-                l++
-              )
-                n[l] = arguments[l];
-              return (
-                h(
-                  y((e = o.call.apply(o, [this].concat(n)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                h(y(e), 'duration', null),
-                h(y(e), 'currentTime', null),
-                h(y(e), 'secondsLoaded', null),
-                h(y(e), 'mute', function() {
-                  e.callPlayer('mute');
-                }),
-                h(y(e), 'unmute', function() {
-                  e.callPlayer('unmute');
-                }),
-                h(y(e), 'ref', function(t) {
-                  e.iframe = t;
-                }),
-                e
-              );
-            }
-            return (
-              i(u, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var r = this;
-                    (0, t.getSDK)(b, v).then(function(e) {
-                      r.iframe &&
-                        ((r.player = new e.Player(r.iframe)),
-                        r.player.setLoop(r.props.loop),
-                        r.player.on('ready', r.props.onReady),
-                        r.player.on('play', r.props.onPlay),
-                        r.player.on('pause', r.props.onPause),
-                        r.player.on('seeked', r.props.onSeek),
-                        r.player.on('ended', r.props.onEnded),
-                        r.player.on('error', r.props.onError),
-                        r.player.on('timeupdate', function(e) {
-                          var t = e.duration,
-                            n = e.seconds;
-                          (r.duration = t), (r.currentTime = n);
-                        }),
-                        r.player.on('buffered', function(e) {
-                          var t = e.percent;
-                          r.duration && (r.secondsLoaded = r.duration * t);
-                        }),
-                        r.props.muted && r.player.mute());
-                    }, this.props.onError);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                { key: 'stop', value: function() {} },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('setCurrentTime', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', 100 * e);
-                  },
-                },
-                {
-                  key: 'setLoop',
-                  value: function(e) {
-                    this.callPlayer('setLoop', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.duration;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.currentTime;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return this.secondsLoaded;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = this.props.url.match(r.MATCH_URL_STREAMABLE)[1];
-                    return e.default.createElement('iframe', {
-                      ref: this.ref,
-                      src: 'https://streamable.com/o/'.concat(t),
-                      frameBorder: '0',
-                      scrolling: 'no',
-                      style: { width: '100%', height: '100%' },
-                      allowFullScreen: !0,
-                    });
-                  },
-                },
-              ]),
-              u
-            );
-          })();
-        (exports.default = P),
-          h(P, 'displayName', 'Streamable'),
-          h(P, 'canPlay', r.canPlay.streamable);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    PxUw: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          n = require('../patterns');
-        function r() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (r = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== a(e) && 'function' != typeof e))
-            return { default: e };
-          var t = r();
-          if (t && t.has(e)) return t.get(e);
-          var n = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var i in e)
-            if (Object.prototype.hasOwnProperty.call(e, i)) {
-              var u = o ? Object.getOwnPropertyDescriptor(e, i) : null;
-              u && (u.get || u.set)
-                ? Object.defineProperty(n, i, u)
-                : (n[i] = e[i]);
-            }
-          return (n.default = e), t && t.set(e, n), n;
-        }
-        function a(e) {
-          return (a =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function i(e, t) {
-          var n = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var r = Object.getOwnPropertySymbols(e);
-            t &&
-              (r = r.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              n.push.apply(n, r);
-          }
-          return n;
-        }
-        function u(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var n = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? i(Object(n), !0).forEach(function(t) {
-                  P(e, t, n[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(n))
-              : i(Object(n)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(n, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function l(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function c(e, t) {
-          for (var n = 0; n < t.length; n++) {
-            var r = t[n];
-            (r.enumerable = r.enumerable || !1),
-              (r.configurable = !0),
-              'value' in r && (r.writable = !0),
-              Object.defineProperty(e, r.key, r);
-          }
-        }
-        function s(e, t, n) {
-          return t && c(e.prototype, t), n && c(e, n), e;
-        }
-        function p(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && y(e, t);
-        }
-        function y(e, t) {
-          return (y =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function f(e) {
-          var t = h();
-          return function() {
-            var n,
-              r = v(e);
-            if (t) {
-              var o = v(this).constructor;
-              n = Reflect.construct(r, arguments, o);
-            } else n = r.apply(this, arguments);
-            return d(this, n);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== a(t) && 'function' != typeof t) ? b(e) : t;
-        }
-        function b(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function h() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function v(e) {
-          return (v = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function P(e, t, n) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: n,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = n),
-            e
-          );
-        }
-        var O = 'https://fast.wistia.com/assets/external/E-v1.js',
-          m = 'Wistia',
-          w = 'wistia-player-',
-          g = (function(r) {
-            p(a, e.Component);
-            var o = f(a);
-            function a() {
-              var e;
-              l(this, a);
-              for (
-                var n = arguments.length, r = new Array(n), i = 0;
-                i < n;
-                i++
-              )
-                r[i] = arguments[i];
-              return (
-                P(
-                  b((e = o.call.apply(o, [this].concat(r)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                P(
-                  b(e),
-                  'playerID',
-                  e.props.config.playerId ||
-                    ''.concat(w).concat((0, t.randomString)())
-                ),
-                P(b(e), 'onPlay', function() {
-                  var t;
-                  return (t = e.props).onPlay.apply(t, arguments);
-                }),
-                P(b(e), 'onPause', function() {
-                  var t;
-                  return (t = e.props).onPause.apply(t, arguments);
-                }),
-                P(b(e), 'onSeek', function() {
-                  var t;
-                  return (t = e.props).onSeek.apply(t, arguments);
-                }),
-                P(b(e), 'onEnded', function() {
-                  var t;
-                  return (t = e.props).onEnded.apply(t, arguments);
-                }),
-                P(b(e), 'mute', function() {
-                  e.callPlayer('mute');
-                }),
-                P(b(e), 'unmute', function() {
-                  e.callPlayer('unmute');
-                }),
-                e
-              );
-            }
-            return (
-              s(a, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var n = this,
-                      r = this.props,
-                      o = r.playing,
-                      a = r.muted,
-                      i = r.controls,
-                      l = r.onReady,
-                      c = r.config,
-                      s = r.onError;
-                    (0, t.getSDK)(O, m).then(function() {
-                      (window._wq = window._wq || []),
-                        window._wq.push({
-                          id: n.playerID,
-                          options: u(
-                            {
-                              autoPlay: o,
-                              silentAutoPlay: 'allow',
-                              muted: a,
-                              controlsVisibleOnLoad: i,
-                              fullscreenButton: i,
-                              playbar: i,
-                              playbackRateControl: i,
-                              qualityControl: i,
-                              volumeControl: i,
-                              settingsControl: i,
-                              smallPlayButton: i,
-                            },
-                            c.options
-                          ),
-                          onReady: function(e) {
-                            (n.player = e),
-                              n.unbind(),
-                              n.player.bind('play', n.onPlay),
-                              n.player.bind('pause', n.onPause),
-                              n.player.bind('seek', n.onSeek),
-                              n.player.bind('end', n.onEnded),
-                              l();
-                          },
-                        });
-                    }, s);
-                  },
-                },
-                {
-                  key: 'unbind',
-                  value: function() {
-                    this.player.unbind('play', this.onPlay),
-                      this.player.unbind('pause', this.onPause),
-                      this.player.unbind('seek', this.onSeek),
-                      this.player.unbind('end', this.onEnded);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                {
-                  key: 'stop',
-                  value: function() {
-                    this.unbind(), this.callPlayer('remove');
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('time', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('volume', e);
-                  },
-                },
-                {
-                  key: 'setPlaybackRate',
-                  value: function(e) {
-                    this.callPlayer('playbackRate', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.callPlayer('duration');
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.callPlayer('time');
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return null;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = this.props.url,
-                      r = t && t.match(n.MATCH_URL_WISTIA)[1],
-                      o = 'wistia_embed wistia_async_'.concat(r);
-                    return e.default.createElement('div', {
-                      id: this.playerID,
-                      key: r,
-                      className: o,
-                      style: { width: '100%', height: '100%' },
-                    });
-                  },
-                },
-              ]),
-              a
-            );
-          })();
-        (exports.default = g),
-          P(g, 'displayName', 'Wistia'),
-          P(g, 'canPlay', n.canPlay.wistia),
-          P(g, 'loopOnEnded', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    wjni: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== a(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var i in e)
-            if (Object.prototype.hasOwnProperty.call(e, i)) {
-              var u = o ? Object.getOwnPropertyDescriptor(e, i) : null;
-              u && (u.get || u.set)
-                ? Object.defineProperty(r, i, u)
-                : (r[i] = e[i]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function a(e) {
-          return (a =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function i(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function u(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? i(Object(r), !0).forEach(function(t) {
-                  O(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : i(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function c(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function l(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function p(e, t, r) {
-          return t && l(e.prototype, t), r && l(e, r), e;
-        }
-        function s(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && f(e, t);
-        }
-        function f(e, t) {
-          return (f =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function y(e) {
-          var t = b();
-          return function() {
-            var r,
-              n = v(e);
-            if (t) {
-              var o = v(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return d(this, r);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== a(t) && 'function' != typeof t) ? h(e) : t;
-        }
-        function h(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function b() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function v(e) {
-          return (v = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function O(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var P = 'https://player.twitch.tv/js/embed/v1.js',
-          g = 'Twitch',
-          m = 'twitch-player-',
-          j = (function(n) {
-            s(a, e.Component);
-            var o = y(a);
-            function a() {
-              var e;
-              c(this, a);
-              for (
-                var r = arguments.length, n = new Array(r), i = 0;
-                i < r;
-                i++
-              )
-                n[i] = arguments[i];
-              return (
-                O(
-                  h((e = o.call.apply(o, [this].concat(n)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                O(
-                  h(e),
-                  'playerID',
-                  e.props.config.playerId ||
-                    ''.concat(m).concat((0, t.randomString)())
-                ),
-                O(h(e), 'mute', function() {
-                  e.callPlayer('setMuted', !0);
-                }),
-                O(h(e), 'unmute', function() {
-                  e.callPlayer('setMuted', !1);
-                }),
-                e
-              );
-            }
-            return (
-              p(a, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e, n) {
-                    var o = this,
-                      a = this.props,
-                      i = a.playsinline,
-                      c = a.onError,
-                      l = a.config,
-                      p = a.controls,
-                      s = r.MATCH_URL_TWITCH_CHANNEL.test(e),
-                      f = s
-                        ? e.match(r.MATCH_URL_TWITCH_CHANNEL)[1]
-                        : e.match(r.MATCH_URL_TWITCH_VIDEO)[1];
-                    n
-                      ? s
-                        ? this.player.setChannel(f)
-                        : this.player.setVideo('v' + f)
-                      : (0, t.getSDK)(P, g).then(function(e) {
-                          o.player = new e.Player(
-                            o.playerID,
-                            u(
-                              {
-                                video: s ? '' : f,
-                                channel: s ? f : '',
-                                height: '100%',
-                                width: '100%',
-                                playsinline: i,
-                                autoplay: o.props.playing,
-                                muted: o.props.muted,
-                                controls: !!s || p,
-                              },
-                              l.options
-                            )
-                          );
-                          var t = e.Player,
-                            r = t.READY,
-                            n = t.PLAYING,
-                            a = t.PAUSE,
-                            c = t.ENDED,
-                            y = t.ONLINE,
-                            d = t.OFFLINE;
-                          o.player.addEventListener(r, o.props.onReady),
-                            o.player.addEventListener(n, o.props.onPlay),
-                            o.player.addEventListener(a, o.props.onPause),
-                            o.player.addEventListener(c, o.props.onEnded),
-                            o.player.addEventListener(y, o.props.onLoaded),
-                            o.player.addEventListener(d, o.props.onLoaded);
-                        }, c);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                {
-                  key: 'stop',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seek', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.callPlayer('getDuration');
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.callPlayer('getCurrentTime');
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return null;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    return e.default.createElement('div', {
-                      style: { width: '100%', height: '100%' },
-                      id: this.playerID,
-                    });
-                  },
-                },
-              ]),
-              a
-            );
-          })();
-        (exports.default = j),
-          O(j, 'displayName', 'Twitch'),
-          O(j, 'canPlay', r.canPlay.twitch),
-          O(j, 'loopOnEnded', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    Yzpk: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== i(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var a in e)
-            if (Object.prototype.hasOwnProperty.call(e, a)) {
-              var u = o ? Object.getOwnPropertyDescriptor(e, a) : null;
-              u && (u.get || u.set)
-                ? Object.defineProperty(r, a, u)
-                : (r[a] = e[a]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function i(e) {
-          return (i =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function a(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function u(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? a(Object(r), !0).forEach(function(t) {
-                  S(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : a(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function c(e, t) {
-          return y(e) || s(e, t) || f(e, t) || l();
-        }
-        function l() {
-          throw new TypeError(
-            'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
-          );
-        }
-        function f(e, t) {
-          if (e) {
-            if ('string' == typeof e) return p(e, t);
-            var r = Object.prototype.toString.call(e).slice(8, -1);
-            return (
-              'Object' === r && e.constructor && (r = e.constructor.name),
-              'Map' === r || 'Set' === r
-                ? Array.from(e)
-                : 'Arguments' === r ||
-                  /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)
-                ? p(e, t)
-                : void 0
-            );
-          }
-        }
-        function p(e, t) {
-          (null == t || t > e.length) && (t = e.length);
-          for (var r = 0, n = new Array(t); r < t; r++) n[r] = e[r];
-          return n;
-        }
-        function s(e, t) {
-          if ('undefined' != typeof Symbol && Symbol.iterator in Object(e)) {
-            var r = [],
-              n = !0,
-              o = !1,
-              i = void 0;
-            try {
-              for (
-                var a, u = e[Symbol.iterator]();
-                !(n = (a = u.next()).done) &&
-                (r.push(a.value), !t || r.length !== t);
-                n = !0
-              );
-            } catch (c) {
-              (o = !0), (i = c);
-            } finally {
-              try {
-                n || null == u.return || u.return();
-              } finally {
-                if (o) throw i;
-              }
-            }
-            return r;
-          }
-        }
-        function y(e) {
-          if (Array.isArray(e)) return e;
-        }
-        function d(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function b(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function h(e, t, r) {
-          return t && b(e.prototype, t), r && b(e, r), e;
-        }
-        function v(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && m(e, t);
-        }
-        function m(e, t) {
-          return (m =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function O(e) {
-          var t = j();
-          return function() {
-            var r,
-              n = w(e);
-            if (t) {
-              var o = w(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return g(this, r);
-          };
-        }
-        function g(e, t) {
-          return !t || ('object' !== i(t) && 'function' != typeof t) ? P(e) : t;
-        }
-        function P(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function j() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function w(e) {
-          return (w = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function S(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var k = 'https://api.dmcdn.net/all.js',
-          D = 'DM',
-          _ = 'dmAsyncInit',
-          M = (function(n) {
-            v(i, e.Component);
-            var o = O(i);
-            function i() {
-              var e;
-              d(this, i);
-              for (
-                var r = arguments.length, n = new Array(r), a = 0;
-                a < r;
-                a++
-              )
-                n[a] = arguments[a];
-              return (
-                S(
-                  P((e = o.call.apply(o, [this].concat(n)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                S(P(e), 'onDurationChange', function() {
-                  var t = e.getDuration();
-                  e.props.onDuration(t);
-                }),
-                S(P(e), 'mute', function() {
-                  e.callPlayer('setMuted', !0);
-                }),
-                S(P(e), 'unmute', function() {
-                  e.callPlayer('setMuted', !1);
-                }),
-                S(P(e), 'ref', function(t) {
-                  e.container = t;
-                }),
-                e
-              );
-            }
-            return (
-              h(i, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var n = this,
-                      o = this.props,
-                      i = o.controls,
-                      a = o.config,
-                      l = o.onError,
-                      f = o.playing,
-                      p = c(e.match(r.MATCH_URL_DAILYMOTION), 2)[1];
-                    this.player
-                      ? this.player.load(p, {
-                          start: (0, t.parseStartTime)(e),
-                          autoplay: f,
-                        })
-                      : (0, t.getSDK)(k, D, _, function(e) {
-                          return e.player;
-                        }).then(function(r) {
-                          if (n.container) {
-                            var o = r.player;
-                            n.player = new o(n.container, {
-                              width: '100%',
-                              height: '100%',
-                              video: p,
-                              params: u(
-                                {
-                                  controls: i,
-                                  autoplay: n.props.playing,
-                                  mute: n.props.muted,
-                                  start: (0, t.parseStartTime)(e),
-                                  origin: window.location.origin,
-                                },
-                                a.params
-                              ),
-                              events: {
-                                apiready: n.props.onReady,
-                                seeked: function() {
-                                  return n.props.onSeek(n.player.currentTime);
-                                },
-                                video_end: n.props.onEnded,
-                                durationchange: n.onDurationChange,
-                                pause: n.props.onPause,
-                                playing: n.props.onPlay,
-                                waiting: n.props.onBuffer,
-                                error: function(e) {
-                                  return l(e);
-                                },
-                              },
-                            });
-                          }
-                        }, l);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                { key: 'stop', value: function() {} },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seek', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.player.duration || null;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.player.currentTime;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return this.player.bufferedTime;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = {
-                      width: '100%',
-                      height: '100%',
-                      display: this.props.display,
-                    };
-                    return e.default.createElement(
-                      'div',
-                      { style: t },
-                      e.default.createElement('div', { ref: this.ref })
-                    );
-                  },
-                },
-              ]),
-              i
-            );
-          })();
-        (exports.default = M),
-          S(M, 'displayName', 'DailyMotion'),
-          S(M, 'canPlay', r.canPlay.dailymotion),
-          S(M, 'loopOnEnded', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    lakG: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== u(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var i in e)
-            if (Object.prototype.hasOwnProperty.call(e, i)) {
-              var c = o ? Object.getOwnPropertyDescriptor(e, i) : null;
-              c && (c.get || c.set)
-                ? Object.defineProperty(r, i, c)
-                : (r[i] = e[i]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function u(e) {
-          return (u =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function i(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function c(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? i(Object(r), !0).forEach(function(t) {
-                  O(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : i(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function a(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function l(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function f(e, t, r) {
-          return t && l(e.prototype, t), r && l(e, r), e;
-        }
-        function p(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && s(e, t);
-        }
-        function s(e, t) {
-          return (s =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function y(e) {
-          var t = v();
-          return function() {
-            var r,
-              n = h(e);
-            if (t) {
-              var o = h(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return d(this, r);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== u(t) && 'function' != typeof t) ? b(e) : t;
-        }
-        function b(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function v() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function h(e) {
-          return (h = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function O(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var m = 'https://widget.mixcloud.com/media/js/widgetApi.js',
-          g = 'Mixcloud',
-          P = (function(n) {
-            p(u, e.Component);
-            var o = y(u);
-            function u() {
-              var e;
-              a(this, u);
-              for (
-                var r = arguments.length, n = new Array(r), i = 0;
-                i < r;
-                i++
-              )
-                n[i] = arguments[i];
-              return (
-                O(
-                  b((e = o.call.apply(o, [this].concat(n)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                O(b(e), 'duration', null),
-                O(b(e), 'currentTime', null),
-                O(b(e), 'secondsLoaded', null),
-                O(b(e), 'mute', function() {}),
-                O(b(e), 'unmute', function() {}),
-                O(b(e), 'ref', function(t) {
-                  e.iframe = t;
-                }),
-                e
-              );
-            }
-            return (
-              f(u, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var r = this;
-                    (0, t.getSDK)(m, g).then(function(e) {
-                      (r.player = e.PlayerWidget(r.iframe)),
-                        r.player.ready.then(function() {
-                          r.player.events.play.on(r.props.onPlay),
-                            r.player.events.pause.on(r.props.onPause),
-                            r.player.events.ended.on(r.props.onEnded),
-                            r.player.events.error.on(r.props.error),
-                            r.player.events.progress.on(function(e, t) {
-                              (r.currentTime = e), (r.duration = t);
-                            }),
-                            r.props.onReady();
-                        });
-                    }, this.props.onError);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                { key: 'stop', value: function() {} },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seek', e);
-                  },
-                },
-                { key: 'setVolume', value: function(e) {} },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.duration;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.currentTime;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return null;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var n = this.props,
-                      o = n.url,
-                      u = n.config,
-                      i = o.match(r.MATCH_URL_MIXCLOUD)[1],
-                      a = (0, t.queryString)(
-                        c(c({}, u.options), {}, { feed: '/'.concat(i, '/') })
-                      );
-                    return e.default.createElement('iframe', {
-                      key: i,
-                      ref: this.ref,
-                      style: { width: '100%', height: '100%' },
-                      src: 'https://www.mixcloud.com/widget/iframe/?'.concat(a),
-                      frameBorder: '0',
-                    });
-                  },
-                },
-              ]),
-              u
-            );
-          })();
-        (exports.default = P),
-          O(P, 'displayName', 'Mixcloud'),
-          O(P, 'canPlay', r.canPlay.mixcloud),
-          O(P, 'loopOnEnded', !0);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    EG0w: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          r = require('../patterns');
-        function n() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (n = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== a(e) && 'function' != typeof e))
-            return { default: e };
-          var t = n();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var u in e)
-            if (Object.prototype.hasOwnProperty.call(e, u)) {
-              var i = o ? Object.getOwnPropertyDescriptor(e, u) : null;
-              i && (i.get || i.set)
-                ? Object.defineProperty(r, u, i)
-                : (r[u] = e[u]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        function a(e) {
-          return (a =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function u(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function i(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? u(Object(r), !0).forEach(function(t) {
-                  P(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : u(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function c(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function l(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function p(e, t, r) {
-          return t && l(e.prototype, t), r && l(e, r), e;
-        }
-        function f(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && s(e, t);
-        }
-        function s(e, t) {
-          return (s =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function y(e) {
-          var t = h();
-          return function() {
-            var r,
-              n = v(e);
-            if (t) {
-              var o = v(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return d(this, r);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== a(t) && 'function' != typeof t) ? b(e) : t;
-        }
-        function b(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function h() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function v(e) {
-          return (v = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function P(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var O = 'https://play.vidyard.com/embed/v4.js',
-          m = 'VidyardV4',
-          g = 'onVidyardAPI',
-          j = (function(n) {
-            f(a, e.Component);
-            var o = y(a);
-            function a() {
-              var e;
-              c(this, a);
-              for (
-                var r = arguments.length, n = new Array(r), u = 0;
-                u < r;
-                u++
-              )
-                n[u] = arguments[u];
-              return (
-                P(
-                  b((e = o.call.apply(o, [this].concat(n)))),
-                  'callPlayer',
-                  t.callPlayer
-                ),
-                P(b(e), 'mute', function() {
-                  e.setVolume(0);
-                }),
-                P(b(e), 'unmute', function() {
-                  null !== e.props.volume && e.setVolume(e.props.volume);
-                }),
-                P(b(e), 'ref', function(t) {
-                  e.container = t;
-                }),
-                e
-              );
-            }
-            return (
-              p(a, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this);
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var n = this,
-                      o = this.props,
-                      a = o.playing,
-                      u = o.config,
-                      c = o.onError,
-                      l = o.onDuration,
-                      p = e && e.match(r.MATCH_URL_VIDYARD)[1];
-                    this.player && this.stop(),
-                      (0, t.getSDK)(O, m, g).then(function(e) {
-                        n.container &&
-                          (e.api.addReadyListener(function(e, t) {
-                            (n.player = t),
-                              n.player.on('ready', n.props.onReady),
-                              n.player.on('play', n.props.onPlay),
-                              n.player.on('pause', n.props.onPause),
-                              n.player.on('seek', n.props.onSeek),
-                              n.player.on('playerComplete', n.props.onEnded);
-                          }, p),
-                          e.api.renderPlayer(
-                            i(
-                              {
-                                uuid: p,
-                                container: n.container,
-                                autoplay: a ? 1 : 0,
-                              },
-                              u.options
-                            )
-                          ),
-                          e.api.getPlayerMetadata(p).then(function(e) {
-                            (n.duration = e.length_in_seconds),
-                              l(e.length_in_seconds);
-                          }));
-                      }, c);
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    this.callPlayer('play');
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.callPlayer('pause');
-                  },
-                },
-                {
-                  key: 'stop',
-                  value: function() {
-                    window.VidyardV4.api.destroyPlayer(this.player);
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.callPlayer('seek', e);
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.callPlayer('setVolume', e);
-                  },
-                },
-                {
-                  key: 'setPlaybackRate',
-                  value: function(e) {
-                    this.callPlayer('setPlaybackSpeed', e);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.duration;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.callPlayer('currentTime');
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return null;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = {
-                      width: '100%',
-                      height: '100%',
-                      display: this.props.display,
-                    };
-                    return e.default.createElement(
-                      'div',
-                      { style: t },
-                      e.default.createElement('div', { ref: this.ref })
-                    );
-                  },
-                },
-              ]),
-              a
-            );
-          })();
-        (exports.default = j),
-          P(j, 'displayName', 'Vidyard'),
-          P(j, 'canPlay', r.canPlay.vidyard);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    bXqj: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = o(require('react')),
-          t = require('../utils'),
-          n = require('../patterns');
-        function r() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (r = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== i(e) && 'function' != typeof e))
-            return { default: e };
-          var t = r();
-          if (t && t.has(e)) return t.get(e);
-          var n = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var s in e)
-            if (Object.prototype.hasOwnProperty.call(e, s)) {
-              var a = o ? Object.getOwnPropertyDescriptor(e, s) : null;
-              a && (a.get || a.set)
-                ? Object.defineProperty(n, s, a)
-                : (n[s] = e[s]);
-            }
-          return (n.default = e), t && t.set(e, n), n;
-        }
-        function i(e) {
-          return (i =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function s() {
-          return (s =
-            Object.assign ||
-            function(e) {
-              for (var t = 1; t < arguments.length; t++) {
-                var n = arguments[t];
-                for (var r in n)
-                  Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
-              }
-              return e;
-            }).apply(this, arguments);
-        }
-        function a(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function u(e, t) {
-          for (var n = 0; n < t.length; n++) {
-            var r = t[n];
-            (r.enumerable = r.enumerable || !1),
-              (r.configurable = !0),
-              'value' in r && (r.writable = !0),
-              Object.defineProperty(e, r.key, r);
-          }
-        }
-        function l(e, t, n) {
-          return t && u(e.prototype, t), n && u(e, n), e;
-        }
-        function c(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && p(e, t);
-        }
-        function p(e, t) {
-          return (p =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function f(e) {
-          var t = y();
-          return function() {
-            var n,
-              r = v(e);
-            if (t) {
-              var o = v(this).constructor;
-              n = Reflect.construct(r, arguments, o);
-            } else n = r.apply(this, arguments);
-            return d(this, n);
-          };
-        }
-        function d(e, t) {
-          return !t || ('object' !== i(t) && 'function' != typeof t) ? h(e) : t;
-        }
-        function h(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function y() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function v(e) {
-          return (v = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function m(e, t, n) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: n,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = n),
-            e
-          );
-        }
-        var P =
-            'undefined' != typeof navigator &&
-            /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-            !window.MSStream,
-          b = 'https://cdn.jsdelivr.net/npm/hls.js@VERSION/dist/hls.min.js',
-          E = 'Hls',
-          g =
-            'https://cdnjs.cloudflare.com/ajax/libs/dashjs/VERSION/dash.all.min.js',
-          S = 'dashjs',
-          k = 'https://cdn.jsdelivr.net/npm/flv.js@VERSION/dist/flv.min.js',
-          L = 'flvjs',
-          w = /www\.dropbox\.com\/.+/,
-          O = /https:\/\/watch\.cloudflarestream\.com\/([a-z0-9]+)/,
-          j = 'https://videodelivery.net/{id}/manifest/video.m3u8',
-          I = (function(r) {
-            c(i, e.Component);
-            var o = f(i);
-            function i() {
-              var n;
-              a(this, i);
-              for (
-                var r = arguments.length, u = new Array(r), l = 0;
-                l < r;
-                l++
-              )
-                u[l] = arguments[l];
-              return (
-                m(
-                  h((n = o.call.apply(o, [this].concat(u)))),
-                  'onReady',
-                  function() {
-                    var e;
-                    return (e = n.props).onReady.apply(e, arguments);
-                  }
-                ),
-                m(h(n), 'onPlay', function() {
-                  var e;
-                  return (e = n.props).onPlay.apply(e, arguments);
-                }),
-                m(h(n), 'onBuffer', function() {
-                  var e;
-                  return (e = n.props).onBuffer.apply(e, arguments);
-                }),
-                m(h(n), 'onBufferEnd', function() {
-                  var e;
-                  return (e = n.props).onBufferEnd.apply(e, arguments);
-                }),
-                m(h(n), 'onPause', function() {
-                  var e;
-                  return (e = n.props).onPause.apply(e, arguments);
-                }),
-                m(h(n), 'onEnded', function() {
-                  var e;
-                  return (e = n.props).onEnded.apply(e, arguments);
-                }),
-                m(h(n), 'onError', function() {
-                  var e;
-                  return (e = n.props).onError.apply(e, arguments);
-                }),
-                m(h(n), 'onEnablePIP', function() {
-                  var e;
-                  return (e = n.props).onEnablePIP.apply(e, arguments);
-                }),
-                m(h(n), 'onDisablePIP', function(e) {
-                  var t = n.props,
-                    r = t.onDisablePIP,
-                    o = t.playing;
-                  r(e), o && n.play();
-                }),
-                m(h(n), 'onPresentationModeChange', function(e) {
-                  if (
-                    n.player &&
-                    (0, t.supportsWebKitPresentationMode)(n.player)
-                  ) {
-                    var r = n.player.webkitPresentationMode;
-                    'picture-in-picture' === r
-                      ? n.onEnablePIP(e)
-                      : 'inline' === r && n.onDisablePIP(e);
-                  }
-                }),
-                m(h(n), 'onSeek', function(e) {
-                  n.props.onSeek(e.target.currentTime);
-                }),
-                m(h(n), 'mute', function() {
-                  n.player.muted = !0;
-                }),
-                m(h(n), 'unmute', function() {
-                  n.player.muted = !1;
-                }),
-                m(h(n), 'renderSourceElement', function(t, n) {
-                  return 'string' == typeof t
-                    ? e.default.createElement('source', { key: n, src: t })
-                    : e.default.createElement('source', s({ key: n }, t));
-                }),
-                m(h(n), 'renderTrack', function(t, n) {
-                  return e.default.createElement('track', s({ key: n }, t));
-                }),
-                m(h(n), 'ref', function(e) {
-                  n.player && (n.prevPlayer = n.player), (n.player = e);
-                }),
-                n
-              );
-            }
-            return (
-              l(i, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.props.onMount && this.props.onMount(this),
-                      this.addListeners(this.player),
-                      P && this.player.load();
-                  },
-                },
-                {
-                  key: 'componentDidUpdate',
-                  value: function(e) {
-                    this.shouldUseAudio(this.props) !==
-                      this.shouldUseAudio(e) &&
-                      (this.removeListeners(this.prevPlayer),
-                      this.addListeners(this.player));
-                  },
-                },
-                {
-                  key: 'componentWillUnmount',
-                  value: function() {
-                    this.removeListeners(this.player),
-                      this.hls && this.hls.destroy();
-                  },
-                },
-                {
-                  key: 'addListeners',
-                  value: function(e) {
-                    var t = this.props.playsinline;
-                    e.addEventListener('canplay', this.onReady),
-                      e.addEventListener('play', this.onPlay),
-                      e.addEventListener('waiting', this.onBuffer),
-                      e.addEventListener('playing', this.onBufferEnd),
-                      e.addEventListener('pause', this.onPause),
-                      e.addEventListener('seeked', this.onSeek),
-                      e.addEventListener('ended', this.onEnded),
-                      e.addEventListener('error', this.onError),
-                      e.addEventListener(
-                        'enterpictureinpicture',
-                        this.onEnablePIP
-                      ),
-                      e.addEventListener(
-                        'leavepictureinpicture',
-                        this.onDisablePIP
-                      ),
-                      e.addEventListener(
-                        'webkitpresentationmodechanged',
-                        this.onPresentationModeChange
-                      ),
-                      t &&
-                        (e.setAttribute('playsinline', ''),
-                        e.setAttribute('webkit-playsinline', ''),
-                        e.setAttribute('x5-playsinline', ''));
-                  },
-                },
-                {
-                  key: 'removeListeners',
-                  value: function(e) {
-                    e.removeEventListener('canplay', this.onReady),
-                      e.removeEventListener('play', this.onPlay),
-                      e.removeEventListener('waiting', this.onBuffer),
-                      e.removeEventListener('playing', this.onBufferEnd),
-                      e.removeEventListener('pause', this.onPause),
-                      e.removeEventListener('seeked', this.onSeek),
-                      e.removeEventListener('ended', this.onEnded),
-                      e.removeEventListener('error', this.onError),
-                      e.removeEventListener(
-                        'enterpictureinpicture',
-                        this.onEnablePIP
-                      ),
-                      e.removeEventListener(
-                        'leavepictureinpicture',
-                        this.onDisablePIP
-                      ),
-                      e.removeEventListener(
-                        'webkitpresentationmodechanged',
-                        this.onPresentationModeChange
-                      );
-                  },
-                },
-                {
-                  key: 'shouldUseAudio',
-                  value: function(e) {
-                    return (
-                      !e.config.forceVideo &&
-                      !e.config.attributes.poster &&
-                        (n.AUDIO_EXTENSIONS.test(e.url) || e.config.forceAudio)
-                    );
-                  },
-                },
-                {
-                  key: 'shouldUseHLS',
-                  value: function(e) {
-                    return (
-                      !!this.props.config.forceHLS ||
-                      (!P && (n.HLS_EXTENSIONS.test(e) || O.test(e)))
-                    );
-                  },
-                },
-                {
-                  key: 'shouldUseDASH',
-                  value: function(e) {
-                    return (
-                      n.DASH_EXTENSIONS.test(e) || this.props.config.forceDASH
-                    );
-                  },
-                },
-                {
-                  key: 'shouldUseFLV',
-                  value: function(e) {
-                    return (
-                      n.FLV_EXTENSIONS.test(e) || this.props.config.forceFLV
-                    );
-                  },
-                },
-                {
-                  key: 'load',
-                  value: function(e) {
-                    var n = this,
-                      r = this.props.config,
-                      o = r.hlsVersion,
-                      i = r.hlsOptions,
-                      s = r.dashVersion,
-                      a = r.flvVersion;
-                    if (
-                      (this.hls && this.hls.destroy(),
-                      this.dash && this.dash.reset(),
-                      this.shouldUseHLS(e) &&
-                        (0, t.getSDK)(b.replace('VERSION', o), E).then(function(
-                          t
-                        ) {
-                          if (
-                            ((n.hls = new t(i)),
-                            n.hls.on(t.Events.ERROR, function(e, r) {
-                              n.props.onError(e, r, n.hls, t);
-                            }),
-                            O.test(e))
-                          ) {
-                            var r = e.match(O)[1];
-                            n.hls.loadSource(j.replace('{id}', r));
-                          } else n.hls.loadSource(e);
-                          n.hls.attachMedia(n.player);
-                        }),
-                      this.shouldUseDASH(e) &&
-                        (0, t.getSDK)(g.replace('VERSION', s), S).then(function(
-                          t
-                        ) {
-                          (n.dash = t.MediaPlayer().create()),
-                            n.dash.initialize(n.player, e, n.props.playing),
-                            n.dash.on('error', n.props.onError),
-                            parseInt(s) < 3
-                              ? n.dash.getDebug().setLogToBrowserConsole(!1)
-                              : n.dash.updateSettings({
-                                  debug: { logLevel: t.Debug.LOG_LEVEL_NONE },
-                                });
-                        }),
-                      this.shouldUseFLV(e) &&
-                        (0, t.getSDK)(k.replace('VERSION', a), L).then(function(
-                          t
-                        ) {
-                          (n.flv = t.createPlayer({ type: 'flv', url: e })),
-                            n.flv.attachMediaElement(n.player),
-                            n.flv.load();
-                        }),
-                      e instanceof Array)
-                    )
-                      this.player.load();
-                    else if ((0, t.isMediaStream)(e))
-                      try {
-                        this.player.srcObject = e;
-                      } catch (u) {
-                        this.player.src = window.URL.createObjectURL(e);
-                      }
-                  },
-                },
-                {
-                  key: 'play',
-                  value: function() {
-                    var e = this.player.play();
-                    e && e.catch(this.props.onError);
-                  },
-                },
-                {
-                  key: 'pause',
-                  value: function() {
-                    this.player.pause();
-                  },
-                },
-                {
-                  key: 'stop',
-                  value: function() {
-                    this.player.removeAttribute('src'),
-                      this.dash && this.dash.reset();
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e) {
-                    this.player.currentTime = e;
-                  },
-                },
-                {
-                  key: 'setVolume',
-                  value: function(e) {
-                    this.player.volume = e;
-                  },
-                },
-                {
-                  key: 'enablePIP',
-                  value: function() {
-                    this.player.requestPictureInPicture &&
-                    document.pictureInPictureElement !== this.player
-                      ? this.player.requestPictureInPicture()
-                      : (0, t.supportsWebKitPresentationMode)(this.player) &&
-                        'picture-in-picture' !==
-                          this.player.webkitPresentationMode &&
-                        this.player.webkitSetPresentationMode(
-                          'picture-in-picture'
-                        );
-                  },
-                },
-                {
-                  key: 'disablePIP',
-                  value: function() {
-                    document.exitPictureInPicture &&
-                    document.pictureInPictureElement === this.player
-                      ? document.exitPictureInPicture()
-                      : (0, t.supportsWebKitPresentationMode)(this.player) &&
-                        'inline' !== this.player.webkitPresentationMode &&
-                        this.player.webkitSetPresentationMode('inline');
-                  },
-                },
-                {
-                  key: 'setPlaybackRate',
-                  value: function(e) {
-                    this.player.playbackRate = e;
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    if (!this.player) return null;
-                    var e = this.player,
-                      t = e.duration,
-                      n = e.seekable;
-                    return t === 1 / 0 && n.length > 0
-                      ? n.end(n.length - 1)
-                      : t;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.player ? this.player.currentTime : null;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    if (!this.player) return null;
-                    var e = this.player.buffered;
-                    if (0 === e.length) return 0;
-                    var t = e.end(e.length - 1),
-                      n = this.getDuration();
-                    return t > n ? n : t;
-                  },
-                },
-                {
-                  key: 'getSource',
-                  value: function(e) {
-                    var n = this.shouldUseHLS(e),
-                      r = this.shouldUseDASH(e),
-                      o = this.shouldUseFLV(e);
-                    if (
-                      !(
-                        e instanceof Array ||
-                        (0, t.isMediaStream)(e) ||
-                        n ||
-                        r ||
-                        o
-                      )
-                    )
-                      return w.test(e)
-                        ? e.replace(
-                            'www.dropbox.com',
-                            'dl.dropboxusercontent.com'
-                          )
-                        : e;
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = this.props,
-                      n = t.url,
-                      r = t.playing,
-                      o = t.loop,
-                      i = t.controls,
-                      a = t.muted,
-                      u = t.config,
-                      l = t.width,
-                      c = t.height,
-                      p = this.shouldUseAudio(this.props) ? 'audio' : 'video',
-                      f = {
-                        width: 'auto' === l ? l : '100%',
-                        height: 'auto' === c ? c : '100%',
-                      };
-                    return e.default.createElement(
-                      p,
-                      s(
-                        {
-                          ref: this.ref,
-                          src: this.getSource(n),
-                          style: f,
-                          preload: 'auto',
-                          autoPlay: r || void 0,
-                          controls: i,
-                          muted: a,
-                          loop: o,
-                        },
-                        u.attributes
-                      ),
-                      n instanceof Array && n.map(this.renderSourceElement),
-                      u.tracks.map(this.renderTrack)
-                    );
-                  },
-                },
-              ]),
-              i
-            );
-          })();
-        (exports.default = I),
-          m(I, 'displayName', 'FilePlayer'),
-          m(I, 'canPlay', n.canPlay.file);
-      },
-      { react: 'ccIB', '../utils': 'pL11', '../patterns': 'TK7v' },
-    ],
-    H9FS: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = require('react'),
-          r = require('../utils'),
-          n = require('../patterns');
-        function t(e) {
-          return (t =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function a() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (a = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function o(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== t(e) && 'function' != typeof e))
-            return { default: e };
-          var r = a();
-          if (r && r.has(e)) return r.get(e);
-          var n = {},
-            o = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var u in e)
-            if (Object.prototype.hasOwnProperty.call(e, u)) {
-              var l = o ? Object.getOwnPropertyDescriptor(e, u) : null;
-              l && (l.get || l.set)
-                ? Object.defineProperty(n, u, l)
-                : (n[u] = e[u]);
-            }
-          return (n.default = e), r && r.set(e, n), n;
-        }
-        var u = [
-          {
-            key: 'youtube',
-            name: 'YouTube',
-            canPlay: n.canPlay.youtube,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./YouTube'));
-              });
-            }),
-          },
-          {
-            key: 'soundcloud',
-            name: 'SoundCloud',
-            canPlay: n.canPlay.soundcloud,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./SoundCloud'));
-              });
-            }),
-          },
-          {
-            key: 'vimeo',
-            name: 'Vimeo',
-            canPlay: n.canPlay.vimeo,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Vimeo'));
-              });
-            }),
-          },
-          {
-            key: 'facebook',
-            name: 'Facebook',
-            canPlay: n.canPlay.facebook,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Facebook'));
-              });
-            }),
-          },
-          {
-            key: 'streamable',
-            name: 'Streamable',
-            canPlay: n.canPlay.streamable,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Streamable'));
-              });
-            }),
-          },
-          {
-            key: 'wistia',
-            name: 'Wistia',
-            canPlay: n.canPlay.wistia,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Wistia'));
-              });
-            }),
-          },
-          {
-            key: 'twitch',
-            name: 'Twitch',
-            canPlay: n.canPlay.twitch,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Twitch'));
-              });
-            }),
-          },
-          {
-            key: 'dailymotion',
-            name: 'DailyMotion',
-            canPlay: n.canPlay.dailymotion,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./DailyMotion'));
-              });
-            }),
-          },
-          {
-            key: 'mixcloud',
-            name: 'Mixcloud',
-            canPlay: n.canPlay.mixcloud,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Mixcloud'));
-              });
-            }),
-          },
-          {
-            key: 'vidyard',
-            name: 'Vidyard',
-            canPlay: n.canPlay.vidyard,
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./Vidyard'));
-              });
-            }),
-          },
-          {
-            key: 'file',
-            name: 'FilePlayer',
-            canPlay: n.canPlay.file,
-            canEnablePIP: function(e) {
-              return (
-                n.canPlay.file(e) &&
-                (document.pictureInPictureEnabled ||
-                  (0, r.supportsWebKitPresentationMode)()) &&
-                !n.AUDIO_EXTENSIONS.test(e)
-              );
-            },
-            lazyPlayer: (0, e.lazy)(function() {
-              return Promise.resolve().then(function() {
-                return o(require('./FilePlayer'));
-              });
-            }),
-          },
-        ];
-        exports.default = u;
-      },
-      {
-        react: 'ccIB',
-        '../utils': 'pL11',
-        '../patterns': 'TK7v',
-        './YouTube': 'XVUi',
-        './SoundCloud': 'dbuc',
-        './Vimeo': 'vdeO',
-        './Facebook': 'zO5G',
-        './Streamable': 'uWAH',
-        './Wistia': 'PxUw',
-        './Twitch': 'wjni',
-        './DailyMotion': 'Yzpk',
-        './Mixcloud': 'lakG',
-        './Vidyard': 'EG0w',
-        './FilePlayer': 'bXqj',
-      },
-    ],
-    wYb7: [
-      function(require, module, exports) {
-        'use strict';
-        function t(t, r) {
-          if (t.length !== r.length) return !1;
-          for (var e = 0; e < t.length; e++) if (t[e] !== r[e]) return !1;
-          return !0;
-        }
-        function r(r, e) {
-          var n;
-          void 0 === e && (e = t);
-          var u,
-            i = [],
-            o = !1;
-          return function() {
-            for (var t = [], f = 0; f < arguments.length; f++)
-              t[f] = arguments[f];
-            return o && n === this && e(t, i)
-              ? u
-              : ((u = r.apply(this, t)), (o = !0), (n = this), (i = t), u);
-          };
-        }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = r;
-        exports.default = e;
-      },
-      {},
-    ],
-    hrDO: [
-      function(require, module, exports) {
-        var e = 'undefined' != typeof Element,
-          r = 'function' == typeof Map,
-          t = 'function' == typeof Set,
-          n = 'function' == typeof ArrayBuffer && !!ArrayBuffer.isView;
-        function f(o, i) {
-          if (o === i) return !0;
-          if (o && i && 'object' == typeof o && 'object' == typeof i) {
-            if (o.constructor !== i.constructor) return !1;
-            var u, a, c, s;
-            if (Array.isArray(o)) {
-              if ((u = o.length) != i.length) return !1;
-              for (a = u; 0 != a--; ) if (!f(o[a], i[a])) return !1;
-              return !0;
-            }
-            if (r && o instanceof Map && i instanceof Map) {
-              if (o.size !== i.size) return !1;
-              for (s = o.entries(); !(a = s.next()).done; )
-                if (!i.has(a.value[0])) return !1;
-              for (s = o.entries(); !(a = s.next()).done; )
-                if (!f(a.value[1], i.get(a.value[0]))) return !1;
-              return !0;
-            }
-            if (t && o instanceof Set && i instanceof Set) {
-              if (o.size !== i.size) return !1;
-              for (s = o.entries(); !(a = s.next()).done; )
-                if (!i.has(a.value[0])) return !1;
-              return !0;
-            }
-            if (n && ArrayBuffer.isView(o) && ArrayBuffer.isView(i)) {
-              if ((u = o.length) != i.length) return !1;
-              for (a = u; 0 != a--; ) if (o[a] !== i[a]) return !1;
-              return !0;
-            }
-            if (o.constructor === RegExp)
-              return o.source === i.source && o.flags === i.flags;
-            if (o.valueOf !== Object.prototype.valueOf)
-              return o.valueOf() === i.valueOf();
-            if (o.toString !== Object.prototype.toString)
-              return o.toString() === i.toString();
-            if ((u = (c = Object.keys(o)).length) !== Object.keys(i).length)
-              return !1;
-            for (a = u; 0 != a--; )
-              if (!Object.prototype.hasOwnProperty.call(i, c[a])) return !1;
-            if (e && o instanceof Element) return !1;
-            for (a = u; 0 != a--; )
-              if (
-                (('_owner' !== c[a] && '__v' !== c[a] && '__o' !== c[a]) ||
-                  !o.$$typeof) &&
-                !f(o[c[a]], i[c[a]])
-              )
-                return !1;
-            return !0;
-          }
-          return o != o && i != i;
-        }
-        module.exports = function(e, r) {
-          try {
-            return f(e, r);
-          } catch (t) {
-            if ((t.message || '').match(/stack|recursion/i))
-              return (
-                console.warn('react-fast-compare cannot handle circular refs'),
-                !1
-              );
-            throw t;
-          }
-        };
-      },
-      {},
-    ],
-    Ga9I: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.defaultProps = exports.propTypes = void 0);
-        var o = e(require('prop-types'));
-        function e(o) {
-          return o && o.__esModule ? o : { default: o };
-        }
-        var n = o.default.string,
-          r = o.default.bool,
-          t = o.default.number,
-          a = o.default.array,
-          i = o.default.oneOfType,
-          s = o.default.shape,
-          l = o.default.object,
-          p = o.default.func,
-          d = o.default.node,
-          u = {
-            url: i([n, a, l]),
-            playing: r,
-            loop: r,
-            controls: r,
-            volume: t,
-            muted: r,
-            playbackRate: t,
-            width: i([n, t]),
-            height: i([n, t]),
-            style: l,
-            progressInterval: t,
-            playsinline: r,
-            pip: r,
-            light: i([r, n]),
-            playIcon: d,
-            wrapper: i([n, p, s({ render: p.isRequired })]),
-            config: s({
-              soundcloud: s({ options: l }),
-              youtube: s({ playerVars: l, embedOptions: l, onUnstarted: p }),
-              facebook: s({ appId: n, version: n, playerId: n }),
-              dailymotion: s({ params: l }),
-              vimeo: s({ playerOptions: l }),
-              file: s({
-                attributes: l,
-                tracks: a,
-                forceVideo: r,
-                forceAudio: r,
-                forceHLS: r,
-                forceDASH: r,
-                forceFLV: r,
-                hlsOptions: l,
-                hlsVersion: n,
-                dashVersion: n,
-                flvVersion: n,
-              }),
-              wistia: s({ options: l, playerId: n }),
-              mixcloud: s({ options: l }),
-              twitch: s({ options: l, playerId: n }),
-              vidyard: s({ options: l }),
-            }),
-            onReady: p,
-            onStart: p,
-            onPlay: p,
-            onPause: p,
-            onBuffer: p,
-            onBufferEnd: p,
-            onEnded: p,
-            onError: p,
-            onDuration: p,
-            onSeek: p,
-            onProgress: p,
-            onEnablePIP: p,
-            onDisablePIP: p,
-          };
-        exports.propTypes = u;
-        var f = function() {},
-          y = {
-            playing: !1,
-            loop: !1,
-            controls: !1,
-            volume: null,
-            muted: !1,
-            playbackRate: 1,
-            width: '640px',
-            height: '360px',
-            style: {},
-            progressInterval: 1e3,
-            playsinline: !1,
-            pip: !1,
-            light: !1,
-            wrapper: 'div',
-            config: {
-              soundcloud: {
-                options: {
-                  visual: !0,
-                  buying: !1,
-                  liking: !1,
-                  download: !1,
-                  sharing: !1,
-                  show_comments: !1,
-                  show_playcount: !1,
-                },
-              },
-              youtube: {
-                playerVars: {
-                  playsinline: 1,
-                  showinfo: 0,
-                  rel: 0,
-                  iv_load_policy: 3,
-                  modestbranding: 1,
-                },
-                embedOptions: {},
-                onUnstarted: f,
-              },
-              facebook: {
-                appId: '1309697205772819',
-                version: 'v3.3',
-                playerId: null,
-              },
-              dailymotion: { params: { api: 1, 'endscreen-enable': !1 } },
-              vimeo: {
-                playerOptions: {
-                  autopause: !1,
-                  byline: !1,
-                  portrait: !1,
-                  title: !1,
-                },
-              },
-              file: {
-                attributes: {},
-                tracks: [],
-                forceVideo: !1,
-                forceAudio: !1,
-                forceHLS: !1,
-                forceDASH: !1,
-                forceFLV: !1,
-                hlsOptions: {},
-                hlsVersion: '0.13.1',
-                dashVersion: '2.9.2',
-                flvVersion: '1.5.0',
-              },
-              wistia: { options: {}, playerId: null },
-              mixcloud: { options: { hide_cover: 1 } },
-              twitch: { options: {}, playerId: null },
-              vidyard: { options: {} },
-            },
-            onReady: f,
-            onStart: f,
-            onPlay: f,
-            onPause: f,
-            onBuffer: f,
-            onBufferEnd: f,
-            onEnded: f,
-            onError: f,
-            onDuration: f,
-            onSeek: f,
-            onProgress: f,
-            onEnablePIP: f,
-            onDisablePIP: f,
-          };
-        exports.defaultProps = y;
-      },
-      { 'prop-types': 'B0VN' },
-    ],
-    JI2V: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = a(require('react')),
-          t = r(require('react-fast-compare')),
-          n = require('./props');
-        function r(e) {
-          return e && e.__esModule ? e : { default: e };
-        }
-        function o() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (o = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function a(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== i(e) && 'function' != typeof e))
-            return { default: e };
-          var t = o();
-          if (t && t.has(e)) return t.get(e);
-          var n = {},
-            r = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var a in e)
-            if (Object.prototype.hasOwnProperty.call(e, a)) {
-              var l = r ? Object.getOwnPropertyDescriptor(e, a) : null;
-              l && (l.get || l.set)
-                ? Object.defineProperty(n, a, l)
-                : (n[a] = e[a]);
-            }
-          return (n.default = e), t && t.set(e, n), n;
-        }
-        function i(e) {
-          return (i =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function l() {
-          return (l =
-            Object.assign ||
-            function(e) {
-              for (var t = 1; t < arguments.length; t++) {
-                var n = arguments[t];
-                for (var r in n)
-                  Object.prototype.hasOwnProperty.call(n, r) && (e[r] = n[r]);
-              }
-              return e;
-            }).apply(this, arguments);
-        }
-        function u(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function s(e, t) {
-          for (var n = 0; n < t.length; n++) {
-            var r = t[n];
-            (r.enumerable = r.enumerable || !1),
-              (r.configurable = !0),
-              'value' in r && (r.writable = !0),
-              Object.defineProperty(e, r.key, r);
-          }
-        }
-        function p(e, t, n) {
-          return t && s(e.prototype, t), n && s(e, n), e;
-        }
-        function y(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && d(e, t);
-        }
-        function d(e, t) {
-          return (d =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function c(e) {
-          var t = P();
-          return function() {
-            var n,
-              r = v(e);
-            if (t) {
-              var o = v(this).constructor;
-              n = Reflect.construct(r, arguments, o);
-            } else n = r.apply(this, arguments);
-            return f(this, n);
-          };
-        }
-        function f(e, t) {
-          return !t || ('object' !== i(t) && 'function' != typeof t) ? h(e) : t;
-        }
-        function h(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function P() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function v(e) {
-          return (v = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function g(e, t, n) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: n,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = n),
-            e
-          );
-        }
-        var b = 5e3,
-          m = (function(n) {
-            y(o, e.Component);
-            var r = c(o);
-            function o() {
-              var e;
-              u(this, o);
-              for (
-                var t = arguments.length, n = new Array(t), a = 0;
-                a < t;
-                a++
-              )
-                n[a] = arguments[a];
-              return (
-                g(h((e = r.call.apply(r, [this].concat(n)))), 'mounted', !1),
-                g(h(e), 'isReady', !1),
-                g(h(e), 'isPlaying', !1),
-                g(h(e), 'isLoading', !0),
-                g(h(e), 'loadOnReady', null),
-                g(h(e), 'startOnPlay', !0),
-                g(h(e), 'seekOnPlay', null),
-                g(h(e), 'onDurationCalled', !1),
-                g(h(e), 'handlePlayerMount', function(t) {
-                  (e.player = t), e.player.load(e.props.url), e.progress();
-                }),
-                g(h(e), 'getInternalPlayer', function(t) {
-                  return e.player ? e.player[t] : null;
-                }),
-                g(h(e), 'progress', function() {
-                  if (e.props.url && e.player && e.isReady) {
-                    var t = e.getCurrentTime() || 0,
-                      n = e.getSecondsLoaded(),
-                      r = e.getDuration();
-                    if (r) {
-                      var o = { playedSeconds: t, played: t / r };
-                      null !== n && ((o.loadedSeconds = n), (o.loaded = n / r)),
-                        (o.playedSeconds === e.prevPlayed &&
-                          o.loadedSeconds === e.prevLoaded) ||
-                          e.props.onProgress(o),
-                        (e.prevPlayed = o.playedSeconds),
-                        (e.prevLoaded = o.loadedSeconds);
-                    }
-                  }
-                  e.progressTimeout = setTimeout(
-                    e.progress,
-                    e.props.progressFrequency || e.props.progressInterval
-                  );
-                }),
-                g(h(e), 'handleReady', function() {
-                  if (e.mounted) {
-                    (e.isReady = !0), (e.isLoading = !1);
-                    var t = e.props,
-                      n = t.onReady,
-                      r = t.playing,
-                      o = t.volume,
-                      a = t.muted;
-                    n(),
-                      a || null === o || e.player.setVolume(o),
-                      e.loadOnReady
-                        ? (e.player.load(e.loadOnReady, !0),
-                          (e.loadOnReady = null))
-                        : r && e.player.play(),
-                      e.handleDurationCheck();
-                  }
-                }),
-                g(h(e), 'handlePlay', function() {
-                  (e.isPlaying = !0), (e.isLoading = !1);
-                  var t = e.props,
-                    n = t.onStart,
-                    r = t.onPlay,
-                    o = t.playbackRate;
-                  e.startOnPlay &&
-                    (e.player.setPlaybackRate &&
-                      1 !== o &&
-                      e.player.setPlaybackRate(o),
-                    n(),
-                    (e.startOnPlay = !1)),
-                    r(),
-                    e.seekOnPlay &&
-                      (e.seekTo(e.seekOnPlay), (e.seekOnPlay = null)),
-                    e.handleDurationCheck();
-                }),
-                g(h(e), 'handlePause', function(t) {
-                  (e.isPlaying = !1), e.isLoading || e.props.onPause(t);
-                }),
-                g(h(e), 'handleEnded', function() {
-                  var t = e.props,
-                    n = t.activePlayer,
-                    r = t.loop,
-                    o = t.onEnded;
-                  n.loopOnEnded && r && e.seekTo(0),
-                    r || ((e.isPlaying = !1), o());
-                }),
-                g(h(e), 'handleError', function() {
-                  var t;
-                  (e.isLoading = !1), (t = e.props).onError.apply(t, arguments);
-                }),
-                g(h(e), 'handleDurationCheck', function() {
-                  clearTimeout(e.durationCheckTimeout);
-                  var t = e.getDuration();
-                  t
-                    ? e.onDurationCalled ||
-                      (e.props.onDuration(t), (e.onDurationCalled = !0))
-                    : (e.durationCheckTimeout = setTimeout(
-                        e.handleDurationCheck,
-                        100
-                      ));
-                }),
-                g(h(e), 'handleLoaded', function() {
-                  e.isLoading = !1;
-                }),
-                e
-              );
-            }
-            return (
-              p(o, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    this.mounted = !0;
-                  },
-                },
-                {
-                  key: 'componentWillUnmount',
-                  value: function() {
-                    clearTimeout(this.progressTimeout),
-                      clearTimeout(this.durationCheckTimeout),
-                      this.isReady &&
-                        (this.player.stop(),
-                        this.player.disablePIP && this.player.disablePIP()),
-                      (this.mounted = !1);
-                  },
-                },
-                {
-                  key: 'componentDidUpdate',
-                  value: function(e) {
-                    var n = this,
-                      r = this.props,
-                      o = r.url,
-                      a = r.playing,
-                      i = r.volume,
-                      l = r.muted,
-                      u = r.playbackRate,
-                      s = r.pip,
-                      p = r.loop,
-                      y = r.activePlayer;
-                    if (!(0, t.default)(e.url, o)) {
-                      if (this.isLoading && !y.forceLoad)
-                        return (
-                          console.warn(
-                            'ReactPlayer: the attempt to load '.concat(
-                              o,
-                              ' is being deferred until the player has loaded'
-                            )
-                          ),
-                          void (this.loadOnReady = o)
-                        );
-                      (this.isLoading = !0),
-                        (this.startOnPlay = !0),
-                        (this.onDurationCalled = !1),
-                        this.player.load(o, this.isReady);
-                    }
-                    e.playing || !a || this.isPlaying || this.player.play(),
-                      e.playing && !a && this.isPlaying && this.player.pause(),
-                      !e.pip &&
-                        s &&
-                        this.player.enablePIP &&
-                        this.player.enablePIP(),
-                      e.pip &&
-                        !s &&
-                        this.player.disablePIP &&
-                        this.player.disablePIP(),
-                      e.volume !== i && null !== i && this.player.setVolume(i),
-                      e.muted !== l &&
-                        (l
-                          ? this.player.mute()
-                          : (this.player.unmute(),
-                            null !== i &&
-                              setTimeout(function() {
-                                return n.player.setVolume(i);
-                              }))),
-                      e.playbackRate !== u &&
-                        this.player.setPlaybackRate &&
-                        this.player.setPlaybackRate(u),
-                      e.loop !== p &&
-                        this.player.setLoop &&
-                        this.player.setLoop(p);
-                  },
-                },
-                {
-                  key: 'getDuration',
-                  value: function() {
-                    return this.isReady ? this.player.getDuration() : null;
-                  },
-                },
-                {
-                  key: 'getCurrentTime',
-                  value: function() {
-                    return this.isReady ? this.player.getCurrentTime() : null;
-                  },
-                },
-                {
-                  key: 'getSecondsLoaded',
-                  value: function() {
-                    return this.isReady ? this.player.getSecondsLoaded() : null;
-                  },
-                },
-                {
-                  key: 'seekTo',
-                  value: function(e, t) {
-                    var n = this;
-                    if (!this.isReady && 0 !== e)
-                      return (
-                        (this.seekOnPlay = e),
-                        void setTimeout(function() {
-                          n.seekOnPlay = null;
-                        }, b)
-                      );
-                    if (t ? 'fraction' === t : e > 0 && e < 1) {
-                      var r = this.player.getDuration();
-                      return r
-                        ? void this.player.seekTo(r * e)
-                        : void console.warn(
-                            'ReactPlayer: could not seek using fraction – duration not yet available'
-                          );
-                    }
-                    this.player.seekTo(e);
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = this.props.activePlayer;
-                    return t
-                      ? e.default.createElement(
-                          t,
-                          l({}, this.props, {
-                            onMount: this.handlePlayerMount,
-                            onReady: this.handleReady,
-                            onPlay: this.handlePlay,
-                            onPause: this.handlePause,
-                            onEnded: this.handleEnded,
-                            onLoaded: this.handleLoaded,
-                            onError: this.handleError,
-                          })
-                        )
-                      : null;
-                  },
-                },
-              ]),
-              o
-            );
-          })();
-        (exports.default = m),
-          g(m, 'displayName', 'Player'),
-          g(m, 'propTypes', n.propTypes),
-          g(m, 'defaultProps', n.defaultProps);
-      },
-      { react: 'ccIB', 'react-fast-compare': 'hrDO', './props': 'Ga9I' },
-    ],
-    AohK: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = r(require('react'));
-        function t() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (t = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function r(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== n(e) && 'function' != typeof e))
-            return { default: e };
-          var r = t();
-          if (r && r.has(e)) return r.get(e);
-          var o = {},
-            i = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var c in e)
-            if (Object.prototype.hasOwnProperty.call(e, c)) {
-              var a = i ? Object.getOwnPropertyDescriptor(e, c) : null;
-              a && (a.get || a.set)
-                ? Object.defineProperty(o, c, a)
-                : (o[c] = e[c]);
-            }
-          return (o.default = e), r && r.set(e, o), o;
-        }
-        function n(e) {
-          return (n =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function o(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function i(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? o(Object(r), !0).forEach(function(t) {
-                  d(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : o(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function c(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function a(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function u(e, t, r) {
-          return t && a(e.prototype, t), r && a(e, r), e;
-        }
-        function l(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && f(e, t);
-        }
-        function f(e, t) {
-          return (f =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function s(e) {
-          var t = h();
-          return function() {
-            var r,
-              n = b(e);
-            if (t) {
-              var o = b(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return p(this, r);
-          };
-        }
-        function p(e, t) {
-          return !t || ('object' !== n(t) && 'function' != typeof t) ? y(e) : t;
-        }
-        function y(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function h() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function b(e) {
-          return (b = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function d(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        var m = '64px',
-          g = {},
-          v = (function(t) {
-            l(n, e.Component);
-            var r = s(n);
-            function n() {
-              var e;
-              c(this, n);
-              for (
-                var t = arguments.length, o = new Array(t), i = 0;
-                i < t;
-                i++
-              )
-                o[i] = arguments[i];
-              return (
-                d(y((e = r.call.apply(r, [this].concat(o)))), 'mounted', !1),
-                d(y(e), 'state', { image: null }),
-                d(y(e), 'handleKeyPress', function(t) {
-                  ('Enter' !== t.key && ' ' !== t.key) || e.props.onClick();
-                }),
-                e
-              );
-            }
-            return (
-              u(n, [
-                {
-                  key: 'componentDidMount',
-                  value: function() {
-                    (this.mounted = !0), this.fetchImage(this.props);
-                  },
-                },
-                {
-                  key: 'componentDidUpdate',
-                  value: function(e) {
-                    var t = this.props,
-                      r = t.url,
-                      n = t.light;
-                    (e.url === r && e.light === n) ||
-                      this.fetchImage(this.props);
-                  },
-                },
-                {
-                  key: 'componentWillUnmount',
-                  value: function() {
-                    this.mounted = !1;
-                  },
-                },
-                {
-                  key: 'fetchImage',
-                  value: function(e) {
-                    var t = this,
-                      r = e.url,
-                      n = e.light;
-                    if ('string' != typeof n) {
-                      if (!g[r])
-                        return (
-                          this.setState({ image: null }),
-                          window
-                            .fetch('https://noembed.com/embed?url='.concat(r))
-                            .then(function(e) {
-                              return e.json();
-                            })
-                            .then(function(e) {
-                              if (e.thumbnail_url && t.mounted) {
-                                var n = e.thumbnail_url.replace(
-                                  'height=100',
-                                  'height=480'
-                                );
-                                t.setState({ image: n }), (g[r] = n);
-                              }
-                            })
-                        );
-                      this.setState({ image: g[r] });
-                    } else this.setState({ image: n });
-                  },
-                },
-                {
-                  key: 'render',
-                  value: function() {
-                    var t = this.props,
-                      r = t.onClick,
-                      n = t.playIcon,
-                      o = this.state.image,
-                      c = {
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      },
-                      a = {
-                        preview: i(
-                          {
-                            width: '100%',
-                            height: '100%',
-                            backgroundImage: o ? 'url('.concat(o, ')') : void 0,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            cursor: 'pointer',
-                          },
-                          c
-                        ),
-                        shadow: i(
-                          {
-                            background:
-                              'radial-gradient(rgb(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 60%)',
-                            borderRadius: m,
-                            width: m,
-                            height: m,
-                          },
-                          c
-                        ),
-                        playIcon: {
-                          borderStyle: 'solid',
-                          borderWidth: '16px 0 16px 26px',
-                          borderColor:
-                            'transparent transparent transparent white',
-                          marginLeft: '7px',
-                        },
-                      },
-                      u = e.default.createElement(
-                        'div',
-                        { style: a.shadow, className: 'react-player__shadow' },
-                        e.default.createElement('div', {
-                          style: a.playIcon,
-                          className: 'react-player__play-icon',
-                        })
-                      );
-                    return e.default.createElement(
-                      'div',
-                      {
-                        style: a.preview,
-                        className: 'react-player__preview',
-                        onClick: r,
-                        tabIndex: 0,
-                        onKeyPress: this.handleKeyPress,
-                      },
-                      n || u
-                    );
-                  },
-                },
-              ]),
-              n
-            );
-          })();
-        exports.default = v;
-      },
-      { react: 'ccIB' },
-    ],
-    mzZN: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.createReactPlayer = void 0);
-        var e = R(require('react')),
-          t = a(require('deepmerge')),
-          r = a(require('memoize-one')),
-          n = a(require('react-fast-compare')),
-          o = require('./props'),
-          u = require('./utils'),
-          i = a(require('./Player'));
-        function a(e) {
-          return e && e.__esModule ? e : { default: e };
-        }
-        function c(e) {
-          return (c =
-            'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-              ? function(e) {
-                  return typeof e;
-                }
-              : function(e) {
-                  return e &&
-                    'function' == typeof Symbol &&
-                    e.constructor === Symbol &&
-                    e !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof e;
-                })(e);
-        }
-        function l(e, t) {
-          var r = Object.keys(e);
-          if (Object.getOwnPropertySymbols) {
-            var n = Object.getOwnPropertySymbols(e);
-            t &&
-              (n = n.filter(function(t) {
-                return Object.getOwnPropertyDescriptor(e, t).enumerable;
-              })),
-              r.push.apply(r, n);
-          }
-          return r;
-        }
-        function f(e) {
-          for (var t = 1; t < arguments.length; t++) {
-            var r = null != arguments[t] ? arguments[t] : {};
-            t % 2
-              ? l(Object(r), !0).forEach(function(t) {
-                  C(e, t, r[t]);
-                })
-              : Object.getOwnPropertyDescriptors
-              ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(r))
-              : l(Object(r)).forEach(function(t) {
-                  Object.defineProperty(
-                    e,
-                    t,
-                    Object.getOwnPropertyDescriptor(r, t)
-                  );
-                });
-          }
-          return e;
-        }
-        function p() {
-          return (p =
-            Object.assign ||
-            function(e) {
-              for (var t = 1; t < arguments.length; t++) {
-                var r = arguments[t];
-                for (var n in r)
-                  Object.prototype.hasOwnProperty.call(r, n) && (e[n] = r[n]);
-              }
-              return e;
-            }).apply(this, arguments);
-        }
-        function s(e) {
-          return v(e) || h(e) || d(e) || y();
-        }
-        function y() {
-          throw new TypeError(
-            'Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
-          );
-        }
-        function d(e, t) {
-          if (e) {
-            if ('string' == typeof e) return b(e, t);
-            var r = Object.prototype.toString.call(e).slice(8, -1);
-            return (
-              'Object' === r && e.constructor && (r = e.constructor.name),
-              'Map' === r || 'Set' === r
-                ? Array.from(e)
-                : 'Arguments' === r ||
-                  /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)
-                ? b(e, t)
-                : void 0
-            );
-          }
-        }
-        function h(e) {
-          if ('undefined' != typeof Symbol && Symbol.iterator in Object(e))
-            return Array.from(e);
-        }
-        function v(e) {
-          if (Array.isArray(e)) return b(e);
-        }
-        function b(e, t) {
-          (null == t || t > e.length) && (t = e.length);
-          for (var r = 0, n = new Array(t); r < t; r++) n[r] = e[r];
-          return n;
-        }
-        function P(e, t) {
-          if (!(e instanceof t))
-            throw new TypeError('Cannot call a class as a function');
-        }
-        function g(e, t) {
-          for (var r = 0; r < t.length; r++) {
-            var n = t[r];
-            (n.enumerable = n.enumerable || !1),
-              (n.configurable = !0),
-              'value' in n && (n.writable = !0),
-              Object.defineProperty(e, n.key, n);
-          }
-        }
-        function w(e, t, r) {
-          return t && g(e.prototype, t), r && g(e, r), e;
-        }
-        function m(e, t) {
-          if ('function' != typeof t && null !== t)
-            throw new TypeError(
-              'Super expression must either be null or a function'
-            );
-          (e.prototype = Object.create(t && t.prototype, {
-            constructor: { value: e, writable: !0, configurable: !0 },
-          })),
-            t && O(e, t);
-        }
-        function O(e, t) {
-          return (O =
-            Object.setPrototypeOf ||
-            function(e, t) {
-              return (e.__proto__ = t), e;
-            })(e, t);
-        }
-        function j(e) {
-          var t = A();
-          return function() {
-            var r,
-              n = _(e);
-            if (t) {
-              var o = _(this).constructor;
-              r = Reflect.construct(n, arguments, o);
-            } else r = n.apply(this, arguments);
-            return S(this, r);
-          };
-        }
-        function S(e, t) {
-          return !t || ('object' !== c(t) && 'function' != typeof t) ? k(e) : t;
-        }
-        function k(e) {
-          if (void 0 === e)
-            throw new ReferenceError(
-              "this hasn't been initialised - super() hasn't been called"
-            );
-          return e;
-        }
-        function A() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return (
-              Date.prototype.toString.call(
-                Reflect.construct(Date, [], function() {})
-              ),
-              !0
-            );
-          } catch (e) {
-            return !1;
-          }
-        }
-        function _(e) {
-          return (_ = Object.setPrototypeOf
-            ? Object.getPrototypeOf
-            : function(e) {
-                return e.__proto__ || Object.getPrototypeOf(e);
-              })(e);
-        }
-        function C(e, t, r) {
-          return (
-            t in e
-              ? Object.defineProperty(e, t, {
-                  value: r,
-                  enumerable: !0,
-                  configurable: !0,
-                  writable: !0,
-                })
-              : (e[t] = r),
-            e
-          );
-        }
-        function E() {
-          if ('function' != typeof WeakMap) return null;
-          var e = new WeakMap();
-          return (
-            (E = function() {
-              return e;
-            }),
-            e
-          );
-        }
-        function R(e) {
-          if (e && e.__esModule) return e;
-          if (null === e || ('object' !== c(e) && 'function' != typeof e))
-            return { default: e };
-          var t = E();
-          if (t && t.has(e)) return t.get(e);
-          var r = {},
-            n = Object.defineProperty && Object.getOwnPropertyDescriptor;
-          for (var o in e)
-            if (Object.prototype.hasOwnProperty.call(e, o)) {
-              var u = n ? Object.getOwnPropertyDescriptor(e, o) : null;
-              u && (u.get || u.set)
-                ? Object.defineProperty(r, o, u)
-                : (r[o] = e[o]);
-            }
-          return (r.default = e), t && t.set(e, r), r;
-        }
-        var D = (0, e.lazy)(function() {
-            return Promise.resolve().then(function() {
-              return R(require('./Preview'));
-            });
-          }),
-          I = 'undefined' != typeof window && window.document,
-          T = Object.keys(o.propTypes),
-          q = I
-            ? e.Suspense
-            : function() {
-                return null;
-              },
-          M = [],
-          x = function(a, c) {
-            var l, y;
-            return (
-              (y = l = (function(l) {
-                m(d, e.Component);
-                var y = j(d);
-                function d() {
-                  var n;
-                  P(this, d);
-                  for (
-                    var l = arguments.length, f = new Array(l), h = 0;
-                    h < l;
-                    h++
-                  )
-                    f[h] = arguments[h];
-                  return (
-                    C(k((n = y.call.apply(y, [this].concat(f)))), 'state', {
-                      showPreview: !!n.props.light,
-                    }),
-                    C(k(n), 'references', {
-                      wrapper: function(e) {
-                        n.wrapper = e;
-                      },
-                      player: function(e) {
-                        n.player = e;
-                      },
-                    }),
-                    C(k(n), 'handleClickPreview', function() {
-                      n.setState({ showPreview: !1 });
-                    }),
-                    C(k(n), 'showPreview', function() {
-                      n.setState({ showPreview: !0 });
-                    }),
-                    C(k(n), 'getDuration', function() {
-                      return n.player ? n.player.getDuration() : null;
-                    }),
-                    C(k(n), 'getCurrentTime', function() {
-                      return n.player ? n.player.getCurrentTime() : null;
-                    }),
-                    C(k(n), 'getSecondsLoaded', function() {
-                      return n.player ? n.player.getSecondsLoaded() : null;
-                    }),
-                    C(k(n), 'getInternalPlayer', function() {
-                      var e =
-                        arguments.length > 0 && void 0 !== arguments[0]
-                          ? arguments[0]
-                          : 'player';
-                      return n.player ? n.player.getInternalPlayer(e) : null;
-                    }),
-                    C(k(n), 'seekTo', function(e, t) {
-                      if (!n.player) return null;
-                      n.player.seekTo(e, t);
-                    }),
-                    C(k(n), 'handleReady', function() {
-                      n.props.onReady(k(n));
-                    }),
-                    C(
-                      k(n),
-                      'getActivePlayer',
-                      (0, r.default)(function(e) {
-                        for (
-                          var t = 0, r = [].concat(M, s(a));
-                          t < r.length;
-                          t++
-                        ) {
-                          var n = r[t];
-                          if (n.canPlay(e)) return n;
-                        }
-                        return c || null;
-                      })
-                    ),
-                    C(
-                      k(n),
-                      'getConfig',
-                      (0, r.default)(function(e, r) {
-                        var u = n.props.config;
-                        return t.default.all([
-                          o.defaultProps.config,
-                          o.defaultProps.config[r] || {},
-                          u,
-                          u[r] || {},
-                        ]);
-                      })
-                    ),
-                    C(
-                      k(n),
-                      'getAttributes',
-                      (0, r.default)(function(e) {
-                        return (0, u.omit)(n.props, T);
-                      })
-                    ),
-                    C(k(n), 'renderActivePlayer', function(t) {
-                      if (!t) return null;
-                      var r = n.getActivePlayer(t);
-                      if (!r) return null;
-                      var o = n.getConfig(t, r.key);
-                      return e.default.createElement(
-                        i.default,
-                        p({}, n.props, {
-                          key: r.key,
-                          ref: n.references.player,
-                          config: o,
-                          activePlayer: r.lazyPlayer || r,
-                          onReady: n.handleReady,
-                        })
-                      );
-                    }),
-                    n
-                  );
-                }
-                return (
-                  w(d, [
-                    {
-                      key: 'shouldComponentUpdate',
-                      value: function(e, t) {
-                        return (
-                          !(0, n.default)(this.props, e) ||
-                          !(0, n.default)(this.state, t)
-                        );
-                      },
-                    },
-                    {
-                      key: 'componentDidUpdate',
-                      value: function(e) {
-                        var t = this.props.light;
-                        !e.light && t && this.setState({ showPreview: !0 }),
-                          e.light && !t && this.setState({ showPreview: !1 });
-                      },
-                    },
-                    {
-                      key: 'renderPreview',
-                      value: function(t) {
-                        if (!t) return null;
-                        var r = this.props,
-                          n = r.light,
-                          o = r.playIcon;
-                        return e.default.createElement(D, {
-                          url: t,
-                          light: n,
-                          playIcon: o,
-                          onClick: this.handleClickPreview,
-                        });
-                      },
-                    },
-                    {
-                      key: 'render',
-                      value: function() {
-                        var t = this.props,
-                          r = t.url,
-                          n = t.style,
-                          o = t.width,
-                          u = t.height,
-                          i = t.wrapper,
-                          a = this.state.showPreview,
-                          c = this.getAttributes(r);
-                        return e.default.createElement(
-                          i,
-                          p(
-                            {
-                              ref: this.references.wrapper,
-                              style: f(f({}, n), {}, { width: o, height: u }),
-                            },
-                            c
-                          ),
-                          e.default.createElement(
-                            q,
-                            { fallback: null },
-                            a
-                              ? this.renderPreview(r)
-                              : this.renderActivePlayer(r)
-                          )
-                        );
-                      },
-                    },
-                  ]),
-                  d
-                );
-              })()),
-              C(l, 'displayName', 'ReactPlayer'),
-              C(l, 'propTypes', o.propTypes),
-              C(l, 'defaultProps', o.defaultProps),
-              C(l, 'addCustomPlayer', function(e) {
-                M.push(e);
-              }),
-              C(l, 'removeCustomPlayers', function() {
-                M.length = 0;
-              }),
-              C(l, 'canPlay', function(e) {
-                for (var t = 0, r = [].concat(M, s(a)); t < r.length; t++) {
-                  if (r[t].canPlay(e)) return !0;
-                }
-                return !1;
-              }),
-              C(l, 'canEnablePIP', function(e) {
-                for (var t = 0, r = [].concat(M, s(a)); t < r.length; t++) {
-                  var n = r[t];
-                  if (n.canEnablePIP && n.canEnablePIP(e)) return !0;
-                }
-                return !1;
-              }),
-              y
-            );
-          };
-        exports.createReactPlayer = x;
-      },
-      {
-        react: 'ccIB',
-        deepmerge: 'QIvx',
-        'memoize-one': 'wYb7',
-        'react-fast-compare': 'hrDO',
-        './props': 'Ga9I',
-        './utils': 'pL11',
-        './Player': 'JI2V',
-        './Preview': 'AohK',
-      },
-    ],
-    gZFt: [
-      function(require, module, exports) {
-        'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.default = void 0);
-        var e = r(require('./players')),
-          t = require('./ReactPlayer');
-        function r(e) {
-          return e && e.__esModule ? e : { default: e };
-        }
-        var a = e.default[e.default.length - 1],
-          u = (0, t.createReactPlayer)(e.default, a);
-        exports.default = u;
-      },
-      { './players': 'H9FS', './ReactPlayer': 'mzZN' },
-    ],
     uyL1: [
       function(require, module, exports) {
         var global = arguments[3];
@@ -23283,31 +17005,30 @@ parcelRequire = (function(e, r, t, n) {
         var e = arguments[3];
         Object.defineProperty(exports, '__esModule', { value: !0 }),
           (exports.default = void 0);
-        var t = h(require('react')),
-          i = l(require('prop-types')),
-          n = l(require('react-modal')),
+        var t = u(require('react')),
+          i = s(require('prop-types')),
+          n = s(require('react-modal')),
           o = require('video-react'),
-          r = h(require('react-player')),
-          a = require('./util'),
-          s = require('./constant');
-        function l(e) {
+          r = require('./util'),
+          a = require('./constant');
+        function s(e) {
           return e && e.__esModule ? e : { default: e };
         }
-        function u() {
+        function l() {
           if ('function' != typeof WeakMap) return null;
           var e = new WeakMap();
           return (
-            (u = function() {
+            (l = function() {
               return e;
             }),
             e
           );
         }
-        function h(e) {
+        function u(e) {
           if (e && e.__esModule) return e;
           if (null === e || ('object' != typeof e && 'function' != typeof e))
             return { default: e };
-          var t = u();
+          var t = l();
           if (t && t.has(e)) return t.get(e);
           var i = {},
             n = Object.defineProperty && Object.getOwnPropertyDescriptor;
@@ -23320,8 +17041,8 @@ parcelRequire = (function(e, r, t, n) {
             }
           return (i.default = e), t && t.set(e, i), i;
         }
-        function c(e) {
-          return (c =
+        function h(e) {
+          return (h =
             'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
               ? function(e) {
                   return typeof e;
@@ -23335,8 +17056,8 @@ parcelRequire = (function(e, r, t, n) {
                     : typeof e;
                 })(e);
         }
-        function d() {
-          return (d =
+        function c() {
+          return (c =
             Object.assign ||
             function(e) {
               for (var t = 1; t < arguments.length; t++) {
@@ -23347,29 +17068,29 @@ parcelRequire = (function(e, r, t, n) {
               return e;
             }).apply(this, arguments);
         }
-        function m(e) {
-          return v(e) || p(e) || f();
+        function d(e) {
+          return p(e) || f(e) || m();
         }
-        function f() {
+        function m() {
           throw new TypeError(
             'Invalid attempt to spread non-iterable instance'
           );
         }
-        function p(e) {
+        function f(e) {
           if (
             Symbol.iterator in Object(e) ||
             '[object Arguments]' === Object.prototype.toString.call(e)
           )
             return Array.from(e);
         }
-        function v(e) {
+        function p(e) {
           if (Array.isArray(e)) {
             for (var t = 0, i = new Array(e.length); t < e.length; t++)
               i[t] = e[t];
             return i;
           }
         }
-        function g(e, t) {
+        function v(e, t) {
           var i = Object.keys(e);
           if (Object.getOwnPropertySymbols) {
             var n = Object.getOwnPropertySymbols(e);
@@ -23381,16 +17102,16 @@ parcelRequire = (function(e, r, t, n) {
           }
           return i;
         }
-        function y(e) {
+        function g(e) {
           for (var t = 1; t < arguments.length; t++) {
             var i = null != arguments[t] ? arguments[t] : {};
             t % 2
-              ? g(i, !0).forEach(function(t) {
-                  b(e, t, i[t]);
+              ? v(i, !0).forEach(function(t) {
+                  y(e, t, i[t]);
                 })
               : Object.getOwnPropertyDescriptors
               ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(i))
-              : g(i).forEach(function(t) {
+              : v(i).forEach(function(t) {
                   Object.defineProperty(
                     e,
                     t,
@@ -23400,7 +17121,7 @@ parcelRequire = (function(e, r, t, n) {
           }
           return e;
         }
-        function b(e, t, i) {
+        function y(e, t, i) {
           return (
             t in e
               ? Object.defineProperty(e, t, {
@@ -23413,15 +17134,15 @@ parcelRequire = (function(e, r, t, n) {
             e
           );
         }
-        function E(e, t) {
-          return S(e) || O(e, t) || _();
+        function b(e, t) {
+          return O(e) || _(e, t) || E();
         }
-        function _() {
+        function E() {
           throw new TypeError(
             'Invalid attempt to destructure non-iterable instance'
           );
         }
-        function O(e, t) {
+        function _(e, t) {
           if (
             Symbol.iterator in Object(e) ||
             '[object Arguments]' === Object.prototype.toString.call(e)
@@ -23449,31 +17170,31 @@ parcelRequire = (function(e, r, t, n) {
             return i;
           }
         }
-        function S(e) {
+        function O(e) {
           if (Array.isArray(e)) return e;
         }
-        function M(e, t) {
+        function S(e, t) {
           if (!(e instanceof t))
             throw new TypeError('Cannot call a class as a function');
         }
-        function C(e, t) {
-          return !t || ('object' !== c(t) && 'function' != typeof t) ? I(e) : t;
+        function M(e, t) {
+          return !t || ('object' !== h(t) && 'function' != typeof t) ? k(e) : t;
         }
-        function k(e) {
-          return (k = Object.setPrototypeOf
+        function C(e) {
+          return (C = Object.setPrototypeOf
             ? Object.getPrototypeOf
             : function(e) {
                 return e.__proto__ || Object.getPrototypeOf(e);
               })(e);
         }
-        function I(e) {
+        function k(e) {
           if (void 0 === e)
             throw new ReferenceError(
               "this hasn't been initialised - super() hasn't been called"
             );
           return e;
         }
-        function w(e, t) {
+        function I(e, t) {
           for (var i = 0; i < t.length; i++) {
             var n = t[i];
             (n.enumerable = n.enumerable || !1),
@@ -23482,10 +17203,10 @@ parcelRequire = (function(e, r, t, n) {
               Object.defineProperty(e, n.key, n);
           }
         }
-        function T(e, t, i) {
-          return t && w(e.prototype, t), i && w(e, i), e;
+        function w(e, t, i) {
+          return t && I(e.prototype, t), i && I(e, i), e;
         }
-        function L(e, t) {
+        function T(e, t) {
           if ('function' != typeof t && null !== t)
             throw new TypeError(
               'Super expression must either be null or a function'
@@ -23493,25 +17214,25 @@ parcelRequire = (function(e, r, t, n) {
           (e.prototype = Object.create(t && t.prototype, {
             constructor: { value: e, writable: !0, configurable: !0 },
           })),
-            t && P(e, t);
+            t && L(e, t);
         }
-        function P(e, t) {
-          return (P =
+        function L(e, t) {
+          return (L =
             Object.setPrototypeOf ||
             function(e, t) {
               return (e.__proto__ = t), e;
             })(e, t);
         }
         require('./style.css'), require('video-react/dist/video-react.css');
-        var N = (function(i) {
-          function r(e) {
+        var P = (function(i) {
+          function s(e) {
             var i;
             return (
-              M(this, r),
-              ((i = C(this, k(r).call(this, e))).state = {
+              S(this, s),
+              ((i = M(this, C(s).call(this, e))).state = {
                 isClosing: !e.animationDisabled,
                 shouldAnimate: !1,
-                zoomLevel: s.MIN_ZOOM_LEVEL,
+                zoomLevel: a.MIN_ZOOM_LEVEL,
                 offsetX: 0,
                 offsetY: 0,
                 loadErrorStatus: {},
@@ -23520,37 +17241,37 @@ parcelRequire = (function(e, r, t, n) {
               (i.zoomInBtn = t.default.createRef()),
               (i.zoomOutBtn = t.default.createRef()),
               (i.caption = t.default.createRef()),
-              (i.closeIfClickInner = i.closeIfClickInner.bind(I(i))),
-              (i.handleImageDoubleClick = i.handleImageDoubleClick.bind(I(i))),
-              (i.handleImageMouseWheel = i.handleImageMouseWheel.bind(I(i))),
-              (i.handleKeyInput = i.handleKeyInput.bind(I(i))),
-              (i.handleMouseUp = i.handleMouseUp.bind(I(i))),
-              (i.handleMouseDown = i.handleMouseDown.bind(I(i))),
-              (i.handleMouseMove = i.handleMouseMove.bind(I(i))),
-              (i.handleOuterMousewheel = i.handleOuterMousewheel.bind(I(i))),
-              (i.handleTouchStart = i.handleTouchStart.bind(I(i))),
-              (i.handleTouchMove = i.handleTouchMove.bind(I(i))),
-              (i.handleTouchEnd = i.handleTouchEnd.bind(I(i))),
-              (i.handlePointerEvent = i.handlePointerEvent.bind(I(i))),
+              (i.closeIfClickInner = i.closeIfClickInner.bind(k(i))),
+              (i.handleImageDoubleClick = i.handleImageDoubleClick.bind(k(i))),
+              (i.handleImageMouseWheel = i.handleImageMouseWheel.bind(k(i))),
+              (i.handleKeyInput = i.handleKeyInput.bind(k(i))),
+              (i.handleMouseUp = i.handleMouseUp.bind(k(i))),
+              (i.handleMouseDown = i.handleMouseDown.bind(k(i))),
+              (i.handleMouseMove = i.handleMouseMove.bind(k(i))),
+              (i.handleOuterMousewheel = i.handleOuterMousewheel.bind(k(i))),
+              (i.handleTouchStart = i.handleTouchStart.bind(k(i))),
+              (i.handleTouchMove = i.handleTouchMove.bind(k(i))),
+              (i.handleTouchEnd = i.handleTouchEnd.bind(k(i))),
+              (i.handlePointerEvent = i.handlePointerEvent.bind(k(i))),
               (i.handleCaptionMousewheel = i.handleCaptionMousewheel.bind(
-                I(i)
+                k(i)
               )),
-              (i.handleWindowResize = i.handleWindowResize.bind(I(i))),
+              (i.handleWindowResize = i.handleWindowResize.bind(k(i))),
               (i.handleZoomInButtonClick = i.handleZoomInButtonClick.bind(
-                I(i)
+                k(i)
               )),
               (i.handleZoomOutButtonClick = i.handleZoomOutButtonClick.bind(
-                I(i)
+                k(i)
               )),
-              (i.requestClose = i.requestClose.bind(I(i))),
-              (i.requestMoveNext = i.requestMoveNext.bind(I(i))),
-              (i.requestMovePrev = i.requestMovePrev.bind(I(i))),
+              (i.requestClose = i.requestClose.bind(k(i))),
+              (i.requestMoveNext = i.requestMoveNext.bind(k(i))),
+              (i.requestMovePrev = i.requestMovePrev.bind(k(i))),
               i
             );
           }
           return (
-            L(r, t.Component),
-            T(r, null, [
+            T(s, t.Component),
+            w(s, null, [
               {
                 key: 'isTargetMatchImage',
                 value: function(e) {
@@ -23562,7 +17283,7 @@ parcelRequire = (function(e, r, t, n) {
                 value: function(e) {
                   return {
                     id: 'mouse',
-                    source: s.SOURCE_MOUSE,
+                    source: a.SOURCE_MOUSE,
                     x: parseInt(e.clientX, 10),
                     y: parseInt(e.clientY, 10),
                   };
@@ -23573,7 +17294,7 @@ parcelRequire = (function(e, r, t, n) {
                 value: function(e) {
                   return {
                     id: e.identifier,
-                    source: s.SOURCE_TOUCH,
+                    source: a.SOURCE_TOUCH,
                     x: parseInt(e.clientX, 10),
                     y: parseInt(e.clientY, 10),
                   };
@@ -23584,7 +17305,7 @@ parcelRequire = (function(e, r, t, n) {
                 value: function(e) {
                   return {
                     id: e.pointerId,
-                    source: s.SOURCE_POINTER,
+                    source: a.SOURCE_POINTER,
                     x: parseInt(e.clientX, 10),
                     y: parseInt(e.clientY, 10),
                   };
@@ -23597,31 +17318,32 @@ parcelRequire = (function(e, r, t, n) {
                     i = void 0 === t ? 0 : t,
                     n = e.y,
                     o = void 0 === n ? 0 : n,
-                    r = e.zoom,
-                    s = void 0 === r ? 1 : r,
+                    a = e.zoom,
+                    s = void 0 === a ? 1 : a,
                     l = e.width,
                     u = e.targetWidth,
-                    h = i,
-                    c = (0, a.getWindowWidth)();
-                  l > c && (h += (c - l) / 2);
-                  var d = s * (u / l);
+                    h = e.src,
+                    c = i,
+                    d = (0, r.getWindowWidth)();
+                  l > d && (c += (d - l) / 2);
+                  var m = (0, r.isVideo)(h) ? 1 : s * (u / l);
                   return {
                     transform: 'translate3d('
-                      .concat(h, 'px,')
+                      .concat(c, 'px,')
                       .concat(o, 'px,0) scale3d(')
-                      .concat(d, ',')
-                      .concat(d, ',1)'),
+                      .concat(m, ',')
+                      .concat(m, ',1)'),
                   };
                 },
               },
             ]),
-            T(r, [
+            w(s, [
               {
                 key: 'UNSAFE_componentWillMount',
                 value: function() {
                   (this.timeouts = []),
-                    (this.currentAction = s.ACTION_NONE),
-                    (this.eventsSource = s.SOURCE_ANY),
+                    (this.currentAction = a.ACTION_NONE),
+                    (this.eventsSource = a.SOURCE_ANY),
                     (this.pointerList = []),
                     (this.preventInnerClose = !1),
                     (this.preventInnerCloseTimeout = null),
@@ -23653,7 +17375,7 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'componentDidMount',
                 value: function() {
                   var e = this;
-                  (this.windowContext = (0, a.getHighestSafeWindowContext)()),
+                  (this.windowContext = (0, r.getHighestSafeWindowContext)()),
                     (this.listeners = {
                       resize: this.handleWindowResize,
                       mouseup: this.handleMouseUp,
@@ -23859,7 +17581,7 @@ parcelRequire = (function(e, r, t, n) {
                     arguments.length > 0 && void 0 !== arguments[0]
                       ? arguments[0]
                       : this.state.zoomLevel;
-                  return Math.pow(s.ZOOM_RATIO, e);
+                  return Math.pow(a.ZOOM_RATIO, e);
                 },
               },
               {
@@ -23868,8 +17590,8 @@ parcelRequire = (function(e, r, t, n) {
                   return this.outerEl.current
                     ? this.outerEl.current.getBoundingClientRect()
                     : {
-                        width: (0, a.getWindowWidth)(),
-                        height: (0, a.getWindowHeight)(),
+                        width: (0, r.getWindowWidth)(),
+                        height: (0, r.getWindowHeight)(),
                         top: 0,
                         right: 0,
                         bottom: 0,
@@ -23901,25 +17623,25 @@ parcelRequire = (function(e, r, t, n) {
                 value: function(e, t, i) {
                   if (this.props.enableZoom) {
                     var n = Math.max(
-                      s.MIN_ZOOM_LEVEL,
-                      Math.min(s.MAX_ZOOM_LEVEL, e)
+                      a.MIN_ZOOM_LEVEL,
+                      Math.min(a.MAX_ZOOM_LEVEL, e)
                     );
                     if (n !== this.state.zoomLevel)
-                      if (n !== s.MIN_ZOOM_LEVEL) {
+                      if (n !== a.MIN_ZOOM_LEVEL) {
                         var o = this.getBestImageForType('mainSrc');
                         if (null !== o) {
                           var r = this.getZoomMultiplier(),
-                            a = this.getZoomMultiplier(n),
+                            s = this.getZoomMultiplier(n),
                             l = this.getLightboxRect(),
                             u = void 0 !== t ? t - l.left : l.width / 2,
                             h = void 0 !== i ? i - l.top : l.height / 2,
                             c = (l.width - o.width * r) / 2,
                             d = (l.height - o.height * r) / 2,
-                            m = u - ((u - (c - this.state.offsetX)) / r) * a,
-                            f = h - ((h - (d - this.state.offsetY)) / r) * a,
-                            p = (l.width - o.width * a) / 2 - m,
-                            v = (l.height - o.height * a) / 2 - f;
-                          if (this.currentAction !== s.ACTION_PINCH) {
+                            m = u - ((u - (c - this.state.offsetX)) / r) * s,
+                            f = h - ((h - (d - this.state.offsetY)) / r) * s,
+                            p = (l.width - o.width * s) / 2 - m,
+                            v = (l.height - o.height * s) / 2 - f;
+                          if (this.currentAction !== a.ACTION_PINCH) {
                             var g = this.getMaxOffsets();
                             this.state.zoomLevel > n &&
                               ((p = Math.max(g.minX, Math.min(g.maxX, p))),
@@ -23954,20 +17676,20 @@ parcelRequire = (function(e, r, t, n) {
                       if (
                         !(
                           i.getTime() - this.lastKeyDownTime <
-                            this.props.keyRepeatLimit && t !== s.KEYS.ESC
+                            this.props.keyRepeatLimit && t !== a.KEYS.ESC
                         )
                       )
                         switch (((this.lastKeyDownTime = i.getTime()), t)) {
-                          case s.KEYS.ESC:
+                          case a.KEYS.ESC:
                             e.preventDefault(), this.requestClose(e);
                             break;
-                          case s.KEYS.LEFT_ARROW:
+                          case a.KEYS.LEFT_ARROW:
                             if (!this.props.prevSrc) return;
                             e.preventDefault(),
                               (this.keyPressed = !0),
                               this.requestMovePrev(e);
                             break;
-                          case s.KEYS.RIGHT_ARROW:
+                          case a.KEYS.RIGHT_ARROW:
                             if (!this.props.nextSrc) return;
                             e.preventDefault(),
                               (this.keyPressed = !0),
@@ -23982,7 +17704,7 @@ parcelRequire = (function(e, r, t, n) {
                 value: function(e) {
                   var t = this;
                   e.stopPropagation();
-                  var i = s.WHEEL_MOVE_X_THRESHOLD,
+                  var i = a.WHEEL_MOVE_X_THRESHOLD,
                     n = 0;
                   if (
                     (this.clearTimeout(this.resetScrollTimeout),
@@ -24013,7 +17735,7 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'handleImageMouseWheel',
                 value: function(e) {
-                  var t = s.WHEEL_MOVE_Y_THRESHOLD;
+                  var t = a.WHEEL_MOVE_Y_THRESHOLD;
                   if (Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
                     if ((e.stopPropagation(), Math.abs(e.deltaY) < t)) return;
                     (this.scrollX = 0),
@@ -24029,10 +17751,10 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'handleImageDoubleClick',
                 value: function(e) {
-                  this.state.zoomLevel > s.MIN_ZOOM_LEVEL
-                    ? this.changeZoom(s.MIN_ZOOM_LEVEL, e.clientX, e.clientY)
+                  this.state.zoomLevel > a.MIN_ZOOM_LEVEL
+                    ? this.changeZoom(a.MIN_ZOOM_LEVEL, e.clientX, e.clientY)
                     : this.changeZoom(
-                        this.state.zoomLevel + s.ZOOM_BUTTON_INCREMENT_SIZE,
+                        this.state.zoomLevel + a.ZOOM_BUTTON_INCREMENT_SIZE,
                         e.clientX,
                         e.clientY
                       );
@@ -24042,21 +17764,21 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'shouldHandleEvent',
                 value: function(e) {
                   if (this.eventsSource === e) return !0;
-                  if (this.eventsSource === s.SOURCE_ANY)
+                  if (this.eventsSource === a.SOURCE_ANY)
                     return (this.eventsSource = e), !0;
                   switch (e) {
-                    case s.SOURCE_MOUSE:
+                    case a.SOURCE_MOUSE:
                       return !1;
-                    case s.SOURCE_TOUCH:
+                    case a.SOURCE_TOUCH:
                       return (
-                        (this.eventsSource = s.SOURCE_TOUCH),
+                        (this.eventsSource = a.SOURCE_TOUCH),
                         this.filterPointersBySource(),
                         !0
                       );
-                    case s.SOURCE_POINTER:
+                    case a.SOURCE_POINTER:
                       return (
-                        this.eventsSource === s.SOURCE_MOUSE &&
-                        ((this.eventsSource = s.SOURCE_POINTER),
+                        this.eventsSource === a.SOURCE_MOUSE &&
+                        ((this.eventsSource = a.SOURCE_POINTER),
                         this.filterPointersBySource(),
                         !0)
                       );
@@ -24091,43 +17813,43 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'handleMouseDown',
                 value: function(e) {
-                  this.shouldHandleEvent(s.SOURCE_MOUSE) &&
-                    r.isTargetMatchImage(e.target) &&
-                    (this.addPointer(r.parseMouseEvent(e)),
+                  this.shouldHandleEvent(a.SOURCE_MOUSE) &&
+                    s.isTargetMatchImage(e.target) &&
+                    (this.addPointer(s.parseMouseEvent(e)),
                     this.multiPointerStart(e));
                 },
               },
               {
                 key: 'handleMouseMove',
                 value: function(e) {
-                  this.shouldHandleEvent(s.SOURCE_MOUSE) &&
-                    this.multiPointerMove(e, [r.parseMouseEvent(e)]);
+                  this.shouldHandleEvent(a.SOURCE_MOUSE) &&
+                    this.multiPointerMove(e, [s.parseMouseEvent(e)]);
                 },
               },
               {
                 key: 'handleMouseUp',
                 value: function(e) {
-                  this.shouldHandleEvent(s.SOURCE_MOUSE) &&
-                    (this.removePointer(r.parseMouseEvent(e)),
+                  this.shouldHandleEvent(a.SOURCE_MOUSE) &&
+                    (this.removePointer(s.parseMouseEvent(e)),
                     this.multiPointerEnd(e));
                 },
               },
               {
                 key: 'handlePointerEvent',
                 value: function(e) {
-                  if (this.shouldHandleEvent(s.SOURCE_POINTER))
+                  if (this.shouldHandleEvent(a.SOURCE_POINTER))
                     switch (e.type) {
                       case 'pointerdown':
-                        r.isTargetMatchImage(e.target) &&
-                          (this.addPointer(r.parsePointerEvent(e)),
+                        s.isTargetMatchImage(e.target) &&
+                          (this.addPointer(s.parsePointerEvent(e)),
                           this.multiPointerStart(e));
                         break;
                       case 'pointermove':
-                        this.multiPointerMove(e, [r.parsePointerEvent(e)]);
+                        this.multiPointerMove(e, [s.parsePointerEvent(e)]);
                         break;
                       case 'pointerup':
                       case 'pointercancel':
-                        this.removePointer(r.parsePointerEvent(e)),
+                        this.removePointer(s.parsePointerEvent(e)),
                           this.multiPointerEnd(e);
                     }
                 },
@@ -24136,10 +17858,10 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'handleTouchStart',
                 value: function(e) {
                   var t = this;
-                  this.shouldHandleEvent(s.SOURCE_TOUCH) &&
-                    r.isTargetMatchImage(e.target) &&
+                  this.shouldHandleEvent(a.SOURCE_TOUCH) &&
+                    s.isTargetMatchImage(e.target) &&
                     ([].forEach.call(e.changedTouches, function(e) {
-                      return t.addPointer(r.parseTouchPointer(e));
+                      return t.addPointer(s.parseTouchPointer(e));
                     }),
                     this.multiPointerStart(e));
                 },
@@ -24147,11 +17869,11 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'handleTouchMove',
                 value: function(e) {
-                  this.shouldHandleEvent(s.SOURCE_TOUCH) &&
+                  this.shouldHandleEvent(a.SOURCE_TOUCH) &&
                     this.multiPointerMove(
                       e,
                       [].map.call(e.changedTouches, function(e) {
-                        return r.parseTouchPointer(e);
+                        return s.parseTouchPointer(e);
                       })
                     );
                 },
@@ -24160,9 +17882,9 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'handleTouchEnd',
                 value: function(e) {
                   var t = this;
-                  this.shouldHandleEvent(s.SOURCE_TOUCH) &&
+                  this.shouldHandleEvent(a.SOURCE_TOUCH) &&
                     ([].map.call(e.changedTouches, function(e) {
-                      return t.removePointer(r.parseTouchPointer(e));
+                      return t.removePointer(s.parseTouchPointer(e));
                     }),
                     this.multiPointerEnd(e));
                 },
@@ -24170,7 +17892,7 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'decideMoveOrSwipe',
                 value: function(e) {
-                  this.state.zoomLevel <= s.MIN_ZOOM_LEVEL
+                  this.state.zoomLevel <= a.MIN_ZOOM_LEVEL
                     ? this.handleSwipeStart(e)
                     : this.handleMoveStart(e);
                 },
@@ -24193,13 +17915,13 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'multiPointerMove',
                 value: function(e, t) {
                   switch (this.currentAction) {
-                    case s.ACTION_MOVE:
+                    case a.ACTION_MOVE:
                       e.preventDefault(), this.handleMove(t[0]);
                       break;
-                    case s.ACTION_SWIPE:
+                    case a.ACTION_SWIPE:
                       e.preventDefault(), this.handleSwipe(t[0]);
                       break;
-                    case s.ACTION_PINCH:
+                    case a.ACTION_PINCH:
                       e.preventDefault(), this.handlePinch(t);
                   }
                 },
@@ -24208,12 +17930,12 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'multiPointerEnd',
                 value: function(e) {
                   switch (
-                    (this.currentAction !== s.ACTION_NONE &&
+                    (this.currentAction !== a.ACTION_NONE &&
                       (this.setPreventInnerClose(), this.handleEnd(e)),
                     this.pointerList.length)
                   ) {
                     case 0:
-                      this.eventsSource = s.SOURCE_ANY;
+                      this.eventsSource = a.SOURCE_ANY;
                       break;
                     case 1:
                       e.preventDefault(),
@@ -24229,13 +17951,13 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'handleEnd',
                 value: function(e) {
                   switch (this.currentAction) {
-                    case s.ACTION_MOVE:
+                    case a.ACTION_MOVE:
                       this.handleMoveEnd(e);
                       break;
-                    case s.ACTION_SWIPE:
+                    case a.ACTION_SWIPE:
                       this.handleSwipeEnd(e);
                       break;
-                    case s.ACTION_PINCH:
+                    case a.ACTION_PINCH:
                       this.handlePinchEnd(e);
                   }
                 },
@@ -24246,7 +17968,7 @@ parcelRequire = (function(e, r, t, n) {
                   var t = e.x,
                     i = e.y;
                   this.props.enableZoom &&
-                    ((this.currentAction = s.ACTION_MOVE),
+                    ((this.currentAction = a.ACTION_MOVE),
                     (this.moveStartX = t),
                     (this.moveStartY = i),
                     (this.moveStartOffsetX = this.state.offsetX),
@@ -24268,7 +17990,7 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'handleMoveEnd',
                 value: function() {
                   var e = this;
-                  (this.currentAction = s.ACTION_NONE),
+                  (this.currentAction = a.ACTION_NONE),
                     (this.moveStartX = 0),
                     (this.moveStartY = 0),
                     (this.moveStartOffsetX = 0),
@@ -24292,7 +18014,7 @@ parcelRequire = (function(e, r, t, n) {
                 value: function(e) {
                   var t = e.x,
                     i = e.y;
-                  (this.currentAction = s.ACTION_SWIPE),
+                  (this.currentAction = a.ACTION_SWIPE),
                     (this.swipeStartX = t),
                     (this.swipeStartY = i),
                     (this.swipeEndX = t),
@@ -24314,14 +18036,14 @@ parcelRequire = (function(e, r, t, n) {
                     i = Math.abs(t),
                     n = Math.abs(this.swipeEndY - this.swipeStartY);
                   if (
-                    ((this.currentAction = s.ACTION_NONE),
+                    ((this.currentAction = a.ACTION_NONE),
                     (this.swipeStartX = 0),
                     (this.swipeStartY = 0),
                     (this.swipeEndX = 0),
                     (this.swipeEndY = 0),
                     !(!e || this.isAnimating() || i < 1.5 * n))
                   ) {
-                    if (i < s.MIN_SWIPE_DISTANCE)
+                    if (i < a.MIN_SWIPE_DISTANCE)
                       if (i < this.getLightboxRect().width / 4) return;
                     t > 0 && this.props.prevSrc
                       ? (e.preventDefault(), this.requestMovePrev())
@@ -24334,7 +18056,7 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'calculatePinchDistance',
                 value: function() {
-                  var e = E(
+                  var e = b(
                       arguments.length > 0 && void 0 !== arguments[0]
                         ? arguments[0]
                         : this.pinchTouchList,
@@ -24350,7 +18072,7 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'calculatePinchCenter',
                 value: function() {
-                  var e = E(
+                  var e = b(
                       arguments.length > 0 && void 0 !== arguments[0]
                         ? arguments[0]
                         : this.pinchTouchList,
@@ -24365,7 +18087,7 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'handlePinchStart',
                 value: function(e) {
                   this.props.enableZoom &&
-                    ((this.currentAction = s.ACTION_PINCH),
+                    ((this.currentAction = a.ACTION_PINCH),
                     (this.pinchTouchList = e.map(function(e) {
                       return { id: e.id, x: e.x, y: e.y };
                     })),
@@ -24392,7 +18114,7 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'handlePinchEnd',
                 value: function() {
-                  (this.currentAction = s.ACTION_NONE),
+                  (this.currentAction = a.ACTION_NONE),
                     (this.pinchTouchList = null),
                     (this.pinchDistance = 0);
                 },
@@ -24410,17 +18132,17 @@ parcelRequire = (function(e, r, t, n) {
               {
                 key: 'handleZoomInButtonClick',
                 value: function() {
-                  var e = this.state.zoomLevel + s.ZOOM_BUTTON_INCREMENT_SIZE;
+                  var e = this.state.zoomLevel + a.ZOOM_BUTTON_INCREMENT_SIZE;
                   this.changeZoom(e),
-                    e === s.MAX_ZOOM_LEVEL && this.zoomOutBtn.current.focus();
+                    e === a.MAX_ZOOM_LEVEL && this.zoomOutBtn.current.focus();
                 },
               },
               {
                 key: 'handleZoomOutButtonClick',
                 value: function() {
-                  var e = this.state.zoomLevel - s.ZOOM_BUTTON_INCREMENT_SIZE;
+                  var e = this.state.zoomLevel - a.ZOOM_BUTTON_INCREMENT_SIZE;
                   this.changeZoom(e),
-                    e === s.MIN_ZOOM_LEVEL && this.zoomInBtn.current.focus();
+                    e === a.MIN_ZOOM_LEVEL && this.zoomInBtn.current.focus();
                 },
               },
               {
@@ -24458,55 +18180,54 @@ parcelRequire = (function(e, r, t, n) {
                       n();
                     }, 1);
                   else {
-                    var r = null;
-                    if ((0, a.isVideo)(i)) {
+                    var a = null;
+                    if ((0, r.isVideo)(i)) {
                       var s = e.document.createElement('video');
                       s.preload = 'auto';
-                      var l = (r = s);
-                      r.addEventListener(
+                      var l = (a = s);
+                      a.addEventListener(
                         'loadedmetadata',
                         function() {
                           var e = l.videoHeight,
-                            a = l.videoWidth;
-                          (isNaN(a) || 0 === parseInt(a, 10)) && (a = 600),
-                            (isNaN(e) || 0 === parseInt(e, 10)) && (e = 400),
-                            console.log(a, e),
-                            o.props.onImageLoad(i, t, r),
+                            r = l.videoWidth;
+                          (isNaN(r) || 0 === parseInt(r, 10)) && (r = 720),
+                            (isNaN(e) || 0 === parseInt(e, 10)) && (e = 500),
+                            o.props.onImageLoad(i, t, a),
                             (o.imageCache[i] = {
                               loaded: !0,
-                              width: a,
+                              width: r,
                               height: e,
                             }),
                             n();
                         },
                         !1
                       );
-                    } else r = new e.Image();
+                    } else a = new e.Image();
                     this.props.imageCrossOrigin &&
-                      (r.crossOrigin = this.props.imageCrossOrigin),
-                      (r.onerror = function(e) {
+                      (a.crossOrigin = this.props.imageCrossOrigin),
+                      (a.onerror = function(e) {
                         o.props.onImageLoadError(i, t, e),
                           o.setState(function(e) {
                             return {
-                              loadErrorStatus: y(
+                              loadErrorStatus: g(
                                 {},
                                 e.loadErrorStatus,
-                                b({}, t, !0)
+                                y({}, t, !0)
                               ),
                             };
                           }),
                           n(e);
                       }),
-                      (r.onload = function() {
-                        o.props.onImageLoad(i, t, r),
+                      (a.onload = function() {
+                        o.props.onImageLoad(i, t, a),
                           (o.imageCache[i] = {
                             loaded: !0,
-                            width: r.width,
-                            height: r.height,
+                            width: a.width,
+                            height: a.height,
                           }),
                           n();
                       }),
-                      (r.src = i);
+                      (a.src = i);
                   }
                 },
               },
@@ -24524,10 +18245,10 @@ parcelRequire = (function(e, r, t, n) {
                       e.state.loadErrorStatus[n] &&
                       e.setState(function(e) {
                         return {
-                          loadErrorStatus: y(
+                          loadErrorStatus: g(
                             {},
                             e.loadErrorStatus,
-                            b({}, n, !1)
+                            y({}, n, !1)
                           ),
                         };
                       }),
@@ -24566,7 +18287,7 @@ parcelRequire = (function(e, r, t, n) {
                 key: 'requestMove',
                 value: function(e, t) {
                   var i = this,
-                    n = { zoomLevel: s.MIN_ZOOM_LEVEL, offsetX: 0, offsetY: 0 };
+                    n = { zoomLevel: a.MIN_ZOOM_LEVEL, offsetX: 0, offsetY: 0 };
                   this.props.animationDisabled ||
                     (this.keyPressed && !this.props.animationOnKeyInput) ||
                     ((n.shouldAnimate = !0),
@@ -24603,11 +18324,11 @@ parcelRequire = (function(e, r, t, n) {
                     l = this.props,
                     u = l.animationDisabled,
                     h = l.animationDuration,
-                    c = l.clickOutsideToClose,
+                    m = l.clickOutsideToClose,
                     f = l.discourageDownloads,
                     p = l.enableZoom,
                     v = l.imageTitle,
-                    g = l.nextSrc,
+                    y = l.nextSrc,
                     b = l.prevSrc,
                     E = l.toolbarButtons,
                     _ = l.reactModalStyle,
@@ -24624,7 +18345,7 @@ parcelRequire = (function(e, r, t, n) {
                     N = {};
                   !u &&
                     this.isAnimating() &&
-                    (N = y({}, N, {
+                    (N = g({}, N, {
                       transition: 'transform '.concat(h, 'ms'),
                     }));
                   var x = {};
@@ -24637,14 +18358,14 @@ parcelRequire = (function(e, r, t, n) {
                     R = function(e, n, l) {
                       if (i.props[e]) {
                         var u = i.getBestImageForType(e),
-                          h = y({}, N, {}, r.getTransform(y({}, l, {}, u)));
-                        k > s.MIN_ZOOM_LEVEL && (h.cursor = 'move');
-                        var c;
+                          h = g({}, N, {}, s.getTransform(g({}, l, {}, u)));
+                        k > a.MIN_ZOOM_LEVEL && (h.cursor = 'move');
+                        var m;
                         if (
                           null === u &&
-                          ((c = L),
-                          Object.keys(c).some(function(e) {
-                            return c[e];
+                          ((m = L),
+                          Object.keys(m).some(function(e) {
+                            return m[e];
                           }))
                         )
                           A.push(
@@ -24689,7 +18410,7 @@ parcelRequire = (function(e, r, t, n) {
                                 )
                               ))
                             : A.push(
-                                (0, a.isVideo)(p)
+                                (0, r.isVideo)(p)
                                   ? t.default.createElement(
                                       'div',
                                       {
@@ -24708,7 +18429,7 @@ parcelRequire = (function(e, r, t, n) {
                                     )
                                   : t.default.createElement(
                                       'img',
-                                      d({}, S ? { crossOrigin: S } : {}, {
+                                      c({}, S ? { crossOrigin: S } : {}, {
                                         className: ''.concat(n, ' ril__image'),
                                         onDoubleClick: i.handleImageDoubleClick,
                                         onWheel: i.handleImageMouseWheel,
@@ -24721,19 +18442,19 @@ parcelRequire = (function(e, r, t, n) {
                                         alt:
                                           'string' == typeof v
                                             ? v
-                                            : (0, a.translate)('Image'),
+                                            : (0, r.translate)('Image'),
                                         draggable: !1,
                                       })
                                     )
                               );
                         } else {
-                          var g = t.default.createElement(
+                          var y = t.default.createElement(
                             'div',
                             {
                               className:
                                 'ril-loading-circle ril__loadingCircle ril__loadingContainer__icon',
                             },
-                            m(new Array(12)).map(function(e, i) {
+                            d(new Array(12)).map(function(e, i) {
                               return t.default.createElement('div', {
                                 key: i,
                                 className:
@@ -24755,7 +18476,7 @@ parcelRequire = (function(e, r, t, n) {
                               t.default.createElement(
                                 'div',
                                 { className: 'ril__loadingContainer' },
-                                g
+                                y
                               )
                             )
                           );
@@ -24773,11 +18494,11 @@ parcelRequire = (function(e, r, t, n) {
                       x: -1 * P.width,
                     });
                   var X = {
-                    overlay: y(
+                    overlay: g(
                       { zIndex: 1e3, backgroundColor: 'transparent' },
                       _.overlay
                     ),
-                    content: y(
+                    content: g(
                       {
                         backgroundColor: 'transparent',
                         overflow: 'hidden',
@@ -24794,15 +18515,15 @@ parcelRequire = (function(e, r, t, n) {
                   };
                   return t.default.createElement(
                     n.default,
-                    d(
+                    c(
                       {
                         isOpen: !0,
-                        onRequestClose: c ? this.requestClose : void 0,
+                        onRequestClose: m ? this.requestClose : void 0,
                         onAfterOpen: function() {
                           i.outerEl.current && i.outerEl.current.focus(), O();
                         },
                         style: X,
-                        contentLabel: (0, a.translate)('Lightbox'),
+                        contentLabel: (0, r.translate)('Lightbox'),
                         appElement:
                           void 0 !== e.window ? e.window.document.body : void 0,
                       },
@@ -24833,7 +18554,7 @@ parcelRequire = (function(e, r, t, n) {
                         'div',
                         {
                           className: 'ril-inner ril__inner',
-                          onClick: c ? this.closeIfClickInner : void 0,
+                          onClick: m ? this.closeIfClickInner : void 0,
                         },
                         A
                       ),
@@ -24848,7 +18569,7 @@ parcelRequire = (function(e, r, t, n) {
                             ? void 0
                             : this.requestMovePrev,
                         }),
-                      g &&
+                      y &&
                         t.default.createElement('button', {
                           type: 'button',
                           className:
@@ -24916,8 +18637,8 @@ parcelRequire = (function(e, r, t, n) {
                                   'ril__zoomInButton',
                                 ]
                                   .concat(
-                                    m(
-                                      k === s.MAX_ZOOM_LEVEL
+                                    d(
+                                      k === a.MAX_ZOOM_LEVEL
                                         ? ['ril__builtinButtonDisabled']
                                         : []
                                     )
@@ -24925,9 +18646,9 @@ parcelRequire = (function(e, r, t, n) {
                                   .join(' '),
                                 ref: this.zoomInBtn,
                                 disabled:
-                                  this.isAnimating() || k === s.MAX_ZOOM_LEVEL,
+                                  this.isAnimating() || k === a.MAX_ZOOM_LEVEL,
                                 onClick:
-                                  this.isAnimating() || k === s.MAX_ZOOM_LEVEL
+                                  this.isAnimating() || k === a.MAX_ZOOM_LEVEL
                                     ? void 0
                                     : this.handleZoomInButtonClick,
                               })
@@ -24949,8 +18670,8 @@ parcelRequire = (function(e, r, t, n) {
                                   'ril__zoomOutButton',
                                 ]
                                   .concat(
-                                    m(
-                                      k === s.MIN_ZOOM_LEVEL
+                                    d(
+                                      k === a.MIN_ZOOM_LEVEL
                                         ? ['ril__builtinButtonDisabled']
                                         : []
                                     )
@@ -24958,9 +18679,9 @@ parcelRequire = (function(e, r, t, n) {
                                   .join(' '),
                                 ref: this.zoomOutBtn,
                                 disabled:
-                                  this.isAnimating() || k === s.MIN_ZOOM_LEVEL,
+                                  this.isAnimating() || k === a.MIN_ZOOM_LEVEL,
                                 onClick:
-                                  this.isAnimating() || k === s.MIN_ZOOM_LEVEL
+                                  this.isAnimating() || k === a.MIN_ZOOM_LEVEL
                                     ? void 0
                                     : this.handleZoomOutButtonClick,
                               })
@@ -25006,10 +18727,10 @@ parcelRequire = (function(e, r, t, n) {
                 },
               },
             ]),
-            r
+            s
           );
         })();
-        (N.propTypes = {
+        (P.propTypes = {
           mainSrc: i.default.string.isRequired,
           prevSrc: i.default.string,
           nextSrc: i.default.string,
@@ -25045,7 +18766,7 @@ parcelRequire = (function(e, r, t, n) {
           closeLabel: i.default.string,
           imageLoadErrorMessage: i.default.node,
         }),
-          (N.defaultProps = {
+          (P.defaultProps = {
             imageTitle: null,
             imageCaption: null,
             toolbarButtons: null,
@@ -25079,15 +18800,14 @@ parcelRequire = (function(e, r, t, n) {
             zoomOutLabel: 'Zoom out',
             imageLoadErrorMessage: 'This image failed to load',
           });
-        var x = N;
-        exports.default = x;
+        var N = P;
+        exports.default = N;
       },
       {
         react: 'ccIB',
         'prop-types': 'B0VN',
         'react-modal': 'GJ4l',
         'video-react': 'VUeD',
-        'react-player': 'gZFt',
         './util': 'uyL1',
         './constant': 'W4uV',
         './style.css': 'ICs2',
@@ -25279,7 +18999,7 @@ parcelRequire = (function(e, r, t, n) {
             })(e, t);
         }
         var w =
-            'https://dev.pety.vn/files/images/288.1593061651.288.1592822215.img_0081.mov',
+            'https://d3u2xd68tejot5.cloudfront.net/images/1496.1595172450.vid_20200716125615.mp4',
           _ = [o.default, w, n.default, r.default, a.default, l.default],
           k = [
             u.default,
@@ -25675,4 +19395,4 @@ parcelRequire = (function(e, r, t, n) {
   ['Focm'],
   null
 );
-//# sourceMappingURL=cats.633e5512.js.map
+//# sourceMappingURL=cats.53a5018b.js.map
