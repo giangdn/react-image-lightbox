@@ -10027,9 +10027,9 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-"video-react@https://github.com/giangdn/video-react":
-  version "0.14.2"
-  resolved "https://github.com/giangdn/video-react#6d489bf3bfe67cf44aa8a04068e39a3e03841b23"
+"video-react@https://github.com/giangdn/video-react.git":
+  version "0.14.1"
+  resolved "https://github.com/giangdn/video-react.git#58164944783c56b7f9dce75c8e0e6cbaa5c93500"
   dependencies:
     "@babel/runtime" "^7.4.5"
     classnames "^2.2.6"
