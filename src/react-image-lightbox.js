@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { Player } from 'video-react';
+import ReactPlayer, { FilePlayer } from 'react-player';
 import {
   translate,
   getWindowWidth,
@@ -1140,8 +1141,14 @@ class ReactImageLightbox extends Component {
         'loadedmetadata',
         () => {
           // retrieve dimensions
-          const height = self.videoHeight;
-          const width = self.videoWidth;
+          let height = self.videoHeight;
+          let width = self.videoWidth;
+
+          // eslint-disable-next-line no-restricted-globals
+          if (isNaN(width) || parseInt(width, 10) === 0) width = 720;
+
+          // eslint-disable-next-line no-restricted-globals
+          if (isNaN(height) || parseInt(height, 10) === 0) height = 500;
 
           this.props.onImageLoad(imageSrc, srcType, inMemoryImage);
 
@@ -1426,12 +1433,20 @@ class ReactImageLightbox extends Component {
               style={imageStyle}
               className={`${imageClass} ril__image`}
             >
-              <Player
-                videoStyle={{}}
-                videoClassName={null}
-                key={imageSrc + keyEndings[srcType]}
-              >
-                <source src={imageSrc} />
+              {/* <ReactPlayer
+                url={imageSrc}
+                playing
+                controls
+                volume="1"
+                playsinline
+                width="100%"
+                height="100%"
+                forcePlayer={FilePlayer}
+                type="video/mp4"
+              /> */}
+              <Player playsInline key={imageSrc + keyEndings[srcType]}>
+                <source src={imageSrc} type="video/mp4" />
+                {/* <source src={imageSrc} type="video/quicktime" /> */}
               </Player>
             </div>
           ) : (
