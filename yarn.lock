@@ -10029,7 +10029,7 @@ verror@1.10.0:
 
 "video-react@https://github.com/giangdn/video-react":
   version "0.14.2"
-  resolved "https://github.com/giangdn/video-react#ab3e837601232e243bdbb49f0bfd40679cb588fb"
+  resolved "https://github.com/giangdn/video-react#6d489bf3bfe67cf44aa8a04068e39a3e03841b23"
   dependencies:
     "@babel/runtime" "^7.4.5"
     classnames "^2.2.6"
