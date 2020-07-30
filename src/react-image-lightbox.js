@@ -67,7 +67,7 @@ class ReactImageLightbox extends Component {
   static getTransform({ x = 0, y = 0, zoom = 1, width, targetWidth, src }) {
     let nextX = x;
     const windowWidth = getWindowWidth();
-    if (width > windowWidth) {
+    if (width > windowWidth && !isVideo(src)) {
       nextX += (windowWidth - width) / 2;
     }
     const scaleFactor = isVideo(src) ? 1 : zoom * (targetWidth / width);
