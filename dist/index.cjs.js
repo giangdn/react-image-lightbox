@@ -426,7 +426,7 @@ var ReactImageLightbox =
           var nextX = x;
           var windowWidth = getWindowWidth();
 
-          if (width > windowWidth) {
+          if (width > windowWidth && !isVideo(src)) {
             nextX += (windowWidth - width) / 2;
           }
 

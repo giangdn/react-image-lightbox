@@ -57036,7 +57036,7 @@ object-assign
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '59712' + '/'
+            protocol + '://' + hostname + ':' + '53490' + '/'
           );
 
           ws.onmessage = function(event) {
