@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { Player } from 'video-react';
-import ReactPlayer, { FilePlayer } from 'react-player';
+// import ReactPlayer, { FilePlayer } from 'react-player';
 import {
   translate,
   getWindowWidth,
@@ -64,13 +64,13 @@ class ReactImageLightbox extends Component {
   }
 
   // Request to transition to the previous image
-  static getTransform({ x = 0, y = 0, zoom = 1, width, targetWidth }) {
+  static getTransform({ x = 0, y = 0, zoom = 1, width, targetWidth, src }) {
     let nextX = x;
     const windowWidth = getWindowWidth();
     if (width > windowWidth) {
       nextX += (windowWidth - width) / 2;
     }
-    const scaleFactor = zoom * (targetWidth / width);
+    const scaleFactor = isVideo(src) ? 1 : zoom * (targetWidth / width);
 
     return {
       transform: `translate3d(${nextX}px,${y}px,0) scale3d(${scaleFactor},${scaleFactor},1)`,
