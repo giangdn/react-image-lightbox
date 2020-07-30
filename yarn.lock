@@ -10028,8 +10028,8 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 "video-react@https://github.com/giangdn/video-react":
-  version "0.14.1"
-  resolved "https://github.com/giangdn/video-react#17a682416b9025c2acd442711cbe031880d61e1f"
+  version "0.14.2"
+  resolved "https://github.com/giangdn/video-react#ab3e837601232e243bdbb49f0bfd40679cb588fb"
   dependencies:
     "@babel/runtime" "^7.4.5"
     classnames "^2.2.6"

@@ -412,7 +412,8 @@ var ReactImageLightbox =
             _ref$zoom = _ref.zoom,
             zoom = _ref$zoom === void 0 ? 1 : _ref$zoom,
             width = _ref.width,
-            targetWidth = _ref.targetWidth;
+            targetWidth = _ref.targetWidth,
+            src = _ref.src;
           var nextX = x;
           var windowWidth = getWindowWidth();
 
@@ -420,7 +421,7 @@ var ReactImageLightbox =
             nextX += (windowWidth - width) / 2;
           }
 
-          var scaleFactor = zoom * (targetWidth / width);
+          var scaleFactor = isVideo(src) ? 1 : zoom * (targetWidth / width);
           return {
             transform: 'translate3d('
               .concat(nextX, 'px,')
@@ -1741,7 +1742,11 @@ var ReactImageLightbox =
               function() {
                 // retrieve dimensions
                 var height = self.videoHeight;
-                var width = self.videoWidth;
+                var width = self.videoWidth; // eslint-disable-next-line no-restricted-globals
+
+                if (isNaN(width) || parseInt(width, 10) === 0) width = 720; // eslint-disable-next-line no-restricted-globals
+
+                if (isNaN(height) || parseInt(height, 10) === 0) height = 500;
 
                 _this12.props.onImageLoad(imageSrc, srcType, inMemoryImage);
 
@@ -2089,12 +2094,12 @@ var ReactImageLightbox =
                       React.createElement(
                         Player,
                         {
-                          videoStyle: {},
-                          videoClassName: null,
+                          playsInline: true,
                           key: imageSrc + keyEndings[srcType],
                         },
                         React.createElement('source', {
                           src: imageSrc,
+                          type: 'video/mp4',
                         })
                       )
                     )
