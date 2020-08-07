@@ -2103,6 +2103,7 @@ var ReactImageLightbox =
                       React__default.createElement(
                         videoReact.Player,
                         {
+                          autoPlay: 'true',
                           playsInline: true,
                           key: imageSrc + keyEndings[srcType],
                         },

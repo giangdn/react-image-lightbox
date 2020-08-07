@@ -1433,7 +1433,11 @@ class ReactImageLightbox extends Component {
               style={imageStyle}
               className={`${imageClass} ril__image`}
             >
-              <Player playsInline key={imageSrc + keyEndings[srcType]}>
+              <Player
+                autoPlay="true"
+                playsInline
+                key={imageSrc + keyEndings[srcType]}
+              >
                 <source src={imageSrc} type="video/mp4" />
               </Player>
             </div>

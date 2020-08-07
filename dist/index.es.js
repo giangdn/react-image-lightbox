@@ -2094,6 +2094,7 @@ var ReactImageLightbox =
                       React.createElement(
                         Player,
                         {
+                          autoPlay: 'true',
                           playsInline: true,
                           key: imageSrc + keyEndings[srcType],
                         },

@@ -53946,7 +53946,7 @@ object-assign
                   var nextX = x;
                   var windowWidth = (0, _util.getWindowWidth)();
 
-                  if (width > windowWidth) {
+                  if (width > windowWidth && !(0, _util.isVideo)(src)) {
                     nextX += (windowWidth - width) / 2;
                   }
 
@@ -55738,6 +55738,7 @@ object-assign
                               _react.default.createElement(
                                 _videoReact.Player,
                                 {
+                                  autoPlay: 'true',
                                   playsInline: true,
                                   key: imageSrc + keyEndings[srcType],
                                 },
@@ -57036,7 +57037,7 @@ object-assign
           var hostname = '' || location.hostname;
           var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
           var ws = new WebSocket(
-            protocol + '://' + hostname + ':' + '53490' + '/'
+            protocol + '://' + hostname + ':' + '51333' + '/'
           );
 
           ws.onmessage = function(event) {
